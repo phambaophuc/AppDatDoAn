@@ -108,7 +108,7 @@ public class SanPhamController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> timKiemSanPhamTheoTen(@RequestParam(value = "name", required = false) String name,
+    public ResponseEntity<?> timKiemSanPham(@RequestParam(value = "name", required = false) String name,
                                                    @RequestParam(value = "theloai", required = false) Long theloai) {
         if (name != null && theloai == null) {
             List<Sanpham> sanphams = sanPhamService.timKiemTheoTen(name);
