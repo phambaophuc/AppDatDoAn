@@ -24,14 +24,14 @@ public interface ISanPhamReponsitory extends JpaRepository<SanPham, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE SanPham" +
-            "SET luotmua = (" +
-                "SELECT SUM(soluong)" +
-                "FROM ChiTietDonDatHang" +
-                "WHERE ChiTietDonDatHang.masanpham = sanpham.masanpham)" +
+    @Query(value = "UPDATE SanPham sp " +
+            "SET sp.luotmua = (" +
+            "SELECT SUM(ctddh.soluong) " +
+            "FROM ChiTietDonDatHang ctddh " +
+            "WHERE ctddh.id.masanpham = sp.masanpham) " +
             "WHERE EXISTS (" +
-                "SELECT 1" +
-                "FROM ChiTietDonDatHang" +
-                "WHERE ChiTietDonDatHang.masanpham = sanpham.masanpham)")
+            "SELECT 1 " +
+            "FROM ChiTietDonDatHang ctddh " +
+            "WHERE ctddh.id.masanpham = sp.masanpham)")
     void updateLuotMua();
 }

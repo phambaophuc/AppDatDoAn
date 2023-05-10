@@ -18,6 +18,10 @@ public class DonDatHangService {
         return donDatHangReponsitory.findByDDHById(id);
     }
 
+    public List<Object[]> LayThongTinDatHangTheoKhachHang(UUID id) {
+        return donDatHangReponsitory.LayThongTinDatHangTheoKhachHang(id);
+    }
+
     public List<DonDatHang> getAllDDH() {
         return donDatHangReponsitory.findAll();
     }
