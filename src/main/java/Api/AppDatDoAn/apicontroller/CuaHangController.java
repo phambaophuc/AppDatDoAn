@@ -1,9 +1,8 @@
 package Api.AppDatDoAn.apicontroller;
 
 import Api.AppDatDoAn.dto.CuaHangDto;
-import Api.AppDatDoAn.entity.Cuahang;
+import Api.AppDatDoAn.entity.CuaHang;
 import Api.AppDatDoAn.services.CuaHangService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -20,7 +19,7 @@ public class CuaHangController {
     @Autowired
     private CuaHangService cuaHangService;
 
-    private CuaHangDto converttoDto(Cuahang cuahang) {
+    private CuaHangDto converttoDto(CuaHang cuahang) {
         CuaHangDto cuaHangDto = new CuaHangDto();
         cuaHangDto.setMacuahang(cuahang.getMacuahang());
         cuaHangDto.setTencuahang(cuahang.getTencuahang());
@@ -29,7 +28,6 @@ public class CuaHangController {
         cuaHangDto.setTinhtrang(cuahang.getTinhtrang());
         cuaHangDto.setSodienthoai(cuahang.getSodienthoai());
         cuaHangDto.setLuotdanhgia(cuahang.getLuotdanhgia());
-        cuaHangDto.setLuotmua(cuahang.getLuotmua());
         cuaHangDto.setChatluong(cuahang.getChatluong());
         cuaHangDto.setGiomocua(cuahang.getGiomocua());
         cuaHangDto.setGiodongcua(cuahang.getGiodongcua());
@@ -40,9 +38,9 @@ public class CuaHangController {
     @GetMapping
     @ResponseBody
     public List<CuaHangDto> getAllCuaHang() {
-        List<Cuahang> cuahangs = cuaHangService.getAllCuaHang();
+        List<CuaHang> cuahangs = cuaHangService.getAllCuaHang();
         List<CuaHangDto> cuaHangDtos = new ArrayList<>();
-        for (Cuahang cuahang : cuahangs) {
+        for (CuaHang cuahang : cuahangs) {
             cuaHangDtos.add(converttoDto(cuahang));
         }
         return cuaHangDtos;
@@ -51,7 +49,7 @@ public class CuaHangController {
     @GetMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> getById(@PathVariable String id) {
-        Cuahang cuahang = cuaHangService.getCuaHangById(id);
+        CuaHang cuahang = cuaHangService.getCuaHangById(id);
         if (cuahang == null) {
             return ResponseEntity.badRequest().body("Cửa hàng không tồn tại.");
         }
@@ -61,7 +59,7 @@ public class CuaHangController {
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<?> addCuaHang(@RequestBody Cuahang cuahang, BindingResult result) {
+    public ResponseEntity<?> addCuaHang(@RequestBody CuaHang cuahang, BindingResult result) {
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         } else {
@@ -72,8 +70,8 @@ public class CuaHangController {
 
     @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<?> editCuaHang(@PathVariable String id, @RequestBody Cuahang cuahang) {
-        Optional<Cuahang> cuahangOptional = Optional.ofNullable(cuaHangService.getCuaHangById(id));
+    public ResponseEntity<?> editCuaHang(@PathVariable String id, @RequestBody CuaHang cuahang) {
+        Optional<CuaHang> cuahangOptional = Optional.ofNullable(cuaHangService.getCuaHangById(id));
 
         if (!cuahangOptional.isPresent()) {
             return ResponseEntity.badRequest().body("Cửa hàng không tồn tại.");

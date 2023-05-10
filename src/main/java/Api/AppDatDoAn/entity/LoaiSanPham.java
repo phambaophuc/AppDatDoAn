@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "loaisanpham")
-public class Loaisanpham {
+public class LoaiSanPham {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long maloai;
@@ -17,5 +17,5 @@ public class Loaisanpham {
     private String tenloai;
 
     @OneToMany(mappedBy = "loaisanpham", cascade = CascadeType.ALL)
-    private List<Sanpham> sanphams;
+    private List<SanPham> sanphams;
 }

@@ -1,6 +1,6 @@
 package Api.AppDatDoAn.services;
 
-import Api.AppDatDoAn.entity.Sanpham;
+import Api.AppDatDoAn.entity.SanPham;
 import Api.AppDatDoAn.reponsitory.ISanPhamReponsitory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,28 +13,28 @@ public class SanPhamService {
     @Autowired
     private ISanPhamReponsitory sanPhamReponsitory;
 
-    public List<Sanpham> getAllSanPham() {
+    public List<SanPham> getAllSanPham() {
         return sanPhamReponsitory.findAll();
     }
 
-    public Sanpham getSanPhamById(Long id) {
-        Optional<Sanpham> optional = sanPhamReponsitory.findById(id);
+    public SanPham getSanPhamById(Long id) {
+        Optional<SanPham> optional = sanPhamReponsitory.findById(id);
         return optional.orElse(null);
     }
 
-    public List<Sanpham> timKiemTheoTen(String name) {
+    public List<SanPham> timKiemTheoTen(String name) {
         return sanPhamReponsitory.searchByName(name);
     }
 
-    public List<Sanpham> timKiemTheoTheLoai(Long idTheLoai) {
+    public List<SanPham> timKiemTheoTheLoai(Long idTheLoai) {
         return sanPhamReponsitory.searchByTheLoai(idTheLoai);
     }
 
-    public List<Sanpham> timKiemTheoTenVaTheLoai(String name, Long theLoai) {
+    public List<SanPham> timKiemTheoTenVaTheLoai(String name, Long theLoai) {
         return sanPhamReponsitory.searchByNameAndTheLoai(name, theLoai);
     }
 
-    public Sanpham saveSanPham(Sanpham sanPham) {
+    public SanPham saveSanPham(SanPham sanPham) {
         return sanPhamReponsitory.save(sanPham);
     }
 

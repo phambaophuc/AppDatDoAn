@@ -1,6 +1,6 @@
 package Api.AppDatDoAn.services;
 
-import Api.AppDatDoAn.entity.Khachhang;
+import Api.AppDatDoAn.entity.KhachHang;
 import Api.AppDatDoAn.reponsitory.IKhachHangReponsitory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,20 +13,20 @@ public class KhachHangService {
     @Autowired
     private IKhachHangReponsitory khachHangReponsitory;
 
-    public Khachhang getKhachHangById(UUID id) {
+    public KhachHang getKhachHangById(UUID id) {
         return khachHangReponsitory.findByMaKhachHang(id);
     }
 
-    public List<Khachhang> getAllKhachHang() {
+    public List<KhachHang> getAllKhachHang() {
         return khachHangReponsitory.findAll();
     }
 
-    public Khachhang saveKhachHang(Khachhang khachhang) {
+    public KhachHang saveKhachHang(KhachHang khachhang) {
         return khachHangReponsitory.save(khachhang);
     }
 
-    public void updateKhachHang(UUID id, Khachhang khachhang) {
-        Khachhang eKhachhang = khachHangReponsitory.findByMaKhachHang(id);
+    public void updateKhachHang(UUID id, KhachHang khachhang) {
+        KhachHang eKhachhang = khachHangReponsitory.findByMaKhachHang(id);
         eKhachhang.setTenkhachhang(khachhang.getTenkhachhang());
         eKhachhang.setSodienthoai(khachhang.getSodienthoai());
         eKhachhang.setDiachi(khachhang.getDiachi());

@@ -9,7 +9,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "khachhang")
-public class Khachhang {
+public class KhachHang {
     @Id
     @GeneratedValue
     private UUID makhachhang;
@@ -24,5 +24,5 @@ public class Khachhang {
     private Long sodienthoai;
 
     @OneToMany(mappedBy = "khachhang", cascade = CascadeType.ALL)
-    private List<Dondathang> dondathangs;
+    private List<DonDatHang> dondathangs;
 }

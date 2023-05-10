@@ -1,7 +1,7 @@
 package Api.AppDatDoAn.apicontroller;
 
 import Api.AppDatDoAn.dto.KhachHangDto;
-import Api.AppDatDoAn.entity.Khachhang;
+import Api.AppDatDoAn.entity.KhachHang;
 import Api.AppDatDoAn.services.KhachHangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class KhachHangController {
     @Autowired
     private KhachHangService khachHangService;
 
-    private KhachHangDto converttoDto(Khachhang khachhang) {
+    private KhachHangDto converttoDto(KhachHang khachhang) {
         KhachHangDto khachHangDto = new KhachHangDto();
         khachHangDto.setMakhachhang(khachhang.getMakhachhang());
         khachHangDto.setTenkhachhang(khachhang.getTenkhachhang());
@@ -32,9 +32,9 @@ public class KhachHangController {
     @GetMapping
     @ResponseBody
     public List<KhachHangDto> getAllKhachHang() {
-        List<Khachhang> khachhangs = khachHangService.getAllKhachHang();
+        List<KhachHang> khachhangs = khachHangService.getAllKhachHang();
         List<KhachHangDto> khachHangDtos = new ArrayList<>();
-        for (Khachhang khachhang : khachhangs) {
+        for (KhachHang khachhang : khachhangs) {
             khachHangDtos.add(converttoDto(khachhang));
         }
         return khachHangDtos;
@@ -43,7 +43,7 @@ public class KhachHangController {
     @GetMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> getKhachHangById(@PathVariable UUID id) {
-        Khachhang khachhang = khachHangService.getKhachHangById(id);
+        KhachHang khachhang = khachHangService.getKhachHangById(id);
         if (khachhang == null) {
             return ResponseEntity.badRequest().body("khách hàng không tồn tại.");
         }
@@ -53,7 +53,7 @@ public class KhachHangController {
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<?> addKhachHang(@RequestBody Khachhang khachhang, BindingResult result) {
+    public ResponseEntity<?> addKhachHang(@RequestBody KhachHang khachhang, BindingResult result) {
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         } else {
@@ -64,8 +64,8 @@ public class KhachHangController {
 
     @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<?> editKhachHang(@PathVariable UUID id, @RequestBody Khachhang khachhang) {
-        Optional<Khachhang> khachhangOptional = Optional.ofNullable(khachHangService.getKhachHangById(id));
+    public ResponseEntity<?> editKhachHang(@PathVariable UUID id, @RequestBody KhachHang khachhang) {
+        Optional<KhachHang> khachhangOptional = Optional.ofNullable(khachHangService.getKhachHangById(id));
 
         if (!khachhangOptional.isPresent()) {
             return ResponseEntity.badRequest().body("Khách hàng không tồn tại.");

@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "cuahang")
-public class Cuahang {
+public class CuaHang {
     @Id
     @Column(name = "macuahang", columnDefinition = "VARCHAR(144)", unique = true)
     private String macuahang;
@@ -29,9 +29,6 @@ public class Cuahang {
     @Column(name = "luotdanhgia")
     private Long luotdanhgia;
 
-    @Column(name = "luotmua")
-    private Long luotmua;
-
     @Column(name = "chatluong")
     private int chatluong;
 
@@ -45,5 +42,5 @@ public class Cuahang {
     private String tinhtrang;
 
     @OneToMany(mappedBy = "cuahang", cascade = CascadeType.ALL)
-    private List<Sanpham> sanphams;
+    private List<SanPham> sanphams;
 }

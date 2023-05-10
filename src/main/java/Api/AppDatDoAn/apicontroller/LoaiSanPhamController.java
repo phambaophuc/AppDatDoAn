@@ -1,7 +1,7 @@
 package Api.AppDatDoAn.apicontroller;
 
 import Api.AppDatDoAn.dto.LoaiSanPhamDto;
-import Api.AppDatDoAn.entity.Loaisanpham;
+import Api.AppDatDoAn.entity.LoaiSanPham;
 import Api.AppDatDoAn.services.LoaiSanPhamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class LoaiSanPhamController {
     @Autowired
     private LoaiSanPhamService loaiSanPhamService;
 
-    private LoaiSanPhamDto converttoDto(Loaisanpham loaisanpham) {
+    private LoaiSanPhamDto converttoDto(LoaiSanPham loaisanpham) {
         LoaiSanPhamDto sanPhamDto = new LoaiSanPhamDto();
         sanPhamDto.setMaloai(loaisanpham.getMaloai());
         sanPhamDto.setTenloai(loaisanpham.getTenloai());
@@ -30,9 +30,9 @@ public class LoaiSanPhamController {
     @GetMapping
     @ResponseBody
     public List<LoaiSanPhamDto> getAllLoaiSanPham() {
-        List<Loaisanpham> loaisanphams = loaiSanPhamService.getAll();
+        List<LoaiSanPham> loaisanphams = loaiSanPhamService.getAll();
         List<LoaiSanPhamDto> loaiSanPhamDtos = new ArrayList<>();
-        for (Loaisanpham loaisanpham : loaisanphams) {
+        for (LoaiSanPham loaisanpham : loaisanphams) {
             loaiSanPhamDtos.add(converttoDto(loaisanpham));
         }
         return loaiSanPhamDtos;
@@ -41,7 +41,7 @@ public class LoaiSanPhamController {
     @GetMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> getById(@PathVariable Long id) {
-        Loaisanpham loaisanpham = loaiSanPhamService.getById(id);
+        LoaiSanPham loaisanpham = loaiSanPhamService.getById(id);
         if (loaisanpham == null) {
             return ResponseEntity.badRequest().body("Loại sản phẩm không tồn tại.");
         }
@@ -51,7 +51,7 @@ public class LoaiSanPhamController {
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<?> addLoaiSanPham(@RequestBody Loaisanpham loaisanpham, BindingResult result) {
+    public ResponseEntity<?> addLoaiSanPham(@RequestBody LoaiSanPham loaisanpham, BindingResult result) {
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         } else {
@@ -62,14 +62,14 @@ public class LoaiSanPhamController {
 
     @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<?> editLoaiSanPham(@PathVariable Long id, @RequestBody Loaisanpham loaisanpham) {
-        Optional<Loaisanpham> loaisanphamOptional = Optional.ofNullable(loaiSanPhamService.getById(id));
+    public ResponseEntity<?> editLoaiSanPham(@PathVariable Long id, @RequestBody LoaiSanPham loaisanpham) {
+        Optional<LoaiSanPham> loaisanphamOptional = Optional.ofNullable(loaiSanPhamService.getById(id));
 
         if (!loaisanphamOptional.isPresent()) {
             return ResponseEntity.badRequest().body("Loại sản phẩm không tồn tại.");
         }
 
-        Loaisanpham eLoaisanpham = loaisanphamOptional.get();
+        LoaiSanPham eLoaisanpham = loaisanphamOptional.get();
         eLoaisanpham.setTenloai(loaisanpham.getTenloai());
 
         loaiSanPhamService.saveLoaiSanPham(eLoaisanpham);

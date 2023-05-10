@@ -1,7 +1,7 @@
 package Api.AppDatDoAn.apicontroller;
 
 import Api.AppDatDoAn.dto.SanPhamDto;
-import Api.AppDatDoAn.entity.Sanpham;
+import Api.AppDatDoAn.entity.SanPham;
 import Api.AppDatDoAn.services.CuaHangService;
 import Api.AppDatDoAn.services.LoaiSanPhamService;
 import Api.AppDatDoAn.services.SanPhamService;
@@ -28,7 +28,7 @@ public class SanPhamController {
     @Autowired
     private CuaHangService cuaHangService;
 
-    private SanPhamDto converttoDto(Sanpham sanpham) {
+    private SanPhamDto converttoDto(SanPham sanpham) {
         SanPhamDto sanPhamDto = new SanPhamDto();
         sanPhamDto.setMasanpham(sanpham.getMasanpham());
         sanPhamDto.setTensanpham(sanpham.getTensanpham());
@@ -44,9 +44,9 @@ public class SanPhamController {
     @GetMapping
     @ResponseBody
     public List<SanPhamDto> getAllSanPham() {
-        List<Sanpham> sanphams = sanPhamService.getAllSanPham();
+        List<SanPham> sanphams = sanPhamService.getAllSanPham();
         List<SanPhamDto> sanPhamDtos = new ArrayList<>();
-        for (Sanpham sanpham : sanphams) {
+        for (SanPham sanpham : sanphams) {
             sanPhamDtos.add(converttoDto(sanpham));
         }
         return sanPhamDtos;
@@ -55,7 +55,7 @@ public class SanPhamController {
     @GetMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> getById(@PathVariable Long id) {
-        Sanpham sanpham = sanPhamService.getSanPhamById(id);
+        SanPham sanpham = sanPhamService.getSanPhamById(id);
         if (sanpham == null) {
             return ResponseEntity.badRequest().body("Sản phẩm không tồn tại.");
         }
@@ -65,7 +65,7 @@ public class SanPhamController {
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<?> addSanPham(@RequestBody Sanpham sanpham, BindingResult result) {
+    public ResponseEntity<?> addSanPham(@RequestBody SanPham sanpham, BindingResult result) {
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         } else {
@@ -76,14 +76,14 @@ public class SanPhamController {
 
     @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<?> editSanPham(@PathVariable Long id, @RequestBody Sanpham sanpham) {
-        Optional<Sanpham> sanphamOptional = Optional.ofNullable(sanPhamService.getSanPhamById(id));
+    public ResponseEntity<?> editSanPham(@PathVariable Long id, @RequestBody SanPham sanpham) {
+        Optional<SanPham> sanphamOptional = Optional.ofNullable(sanPhamService.getSanPhamById(id));
 
         if (!sanphamOptional.isPresent()) {
             return ResponseEntity.badRequest().body("Sản phẩm không tồn tại.");
         }
 
-        Sanpham eSanpham = sanphamOptional.get();
+        SanPham eSanpham = sanphamOptional.get();
         eSanpham.setTensanpham(sanpham.getTensanpham());
         eSanpham.setMota(sanpham.getMota());
         eSanpham.setGia(sanpham.getGia());
@@ -111,23 +111,23 @@ public class SanPhamController {
     public ResponseEntity<?> timKiemSanPham(@RequestParam(value = "name", required = false) String name,
                                                    @RequestParam(value = "theloai", required = false) Long theloai) {
         if (name != null && theloai == null) {
-            List<Sanpham> sanphams = sanPhamService.timKiemTheoTen(name);
+            List<SanPham> sanphams = sanPhamService.timKiemTheoTen(name);
             List<SanPhamDto> sanPhamDtos = new ArrayList<>();
-            for (Sanpham sanpham : sanphams) {
+            for (SanPham sanpham : sanphams) {
                 sanPhamDtos.add(converttoDto(sanpham));
             }
             return ResponseEntity.ok(sanPhamDtos);
         } else if(theloai != null && name == null) {
-            List<Sanpham> sanphams = sanPhamService.timKiemTheoTheLoai(theloai);
+            List<SanPham> sanphams = sanPhamService.timKiemTheoTheLoai(theloai);
             List<SanPhamDto> sanPhamDtos = new ArrayList<>();
-            for (Sanpham sanpham : sanphams) {
+            for (SanPham sanpham : sanphams) {
                 sanPhamDtos.add(converttoDto(sanpham));
             }
             return ResponseEntity.ok(sanPhamDtos);
         } else {
-            List<Sanpham> sanphams = sanPhamService.timKiemTheoTenVaTheLoai(name, theloai);
+            List<SanPham> sanphams = sanPhamService.timKiemTheoTenVaTheLoai(name, theloai);
             List<SanPhamDto> sanPhamDtos = new ArrayList<>();
-            for (Sanpham sanpham : sanphams) {
+            for (SanPham sanpham : sanphams) {
                 sanPhamDtos.add(converttoDto(sanpham));
             }
             return ResponseEntity.ok(sanPhamDtos);

@@ -1,14 +1,14 @@
 package Api.AppDatDoAn.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
+
+import java.util.Set;
 
 @Data
 @Entity
 @Table(name = "sanpham")
-public class Sanpham {
+public class SanPham {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long masanpham;
@@ -22,6 +22,9 @@ public class Sanpham {
     @Column(name = "gia")
     private Double gia;
 
+    @Column(name = "luotmua")
+    private Long luotmua;
+
     @Column(name = "tinhtrang", length = 255)
     private String tinhtrang;
 
@@ -30,9 +33,12 @@ public class Sanpham {
 
     @ManyToOne
     @JoinColumn(name = "loaisanpham_id", nullable = false)
-    private Loaisanpham loaisanpham;
+    private LoaiSanPham loaisanpham;
 
     @ManyToOne
     @JoinColumn(name = "cuahang_id", nullable = false)
-    private Cuahang cuahang;
+    private CuaHang cuahang;
+
+    @OneToMany(mappedBy = "sanpham")
+    private Set<ChiTietDonDatHang> chiTietDonDatHangs;
 }

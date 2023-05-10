@@ -1,6 +1,6 @@
 package Api.AppDatDoAn.services;
 
-import Api.AppDatDoAn.entity.Loaisanpham;
+import Api.AppDatDoAn.entity.LoaiSanPham;
 import Api.AppDatDoAn.reponsitory.ILoaiSanPhamReponsitory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,16 +13,16 @@ public class LoaiSanPhamService {
     @Autowired
     private ILoaiSanPhamReponsitory loaiSanPhamReponsitory;
 
-    public List<Loaisanpham> getAll() {
+    public List<LoaiSanPham> getAll() {
         return loaiSanPhamReponsitory.findAll();
     }
 
-    public Loaisanpham getById(Long id) {
-        Optional<Loaisanpham> optional = loaiSanPhamReponsitory.findById(id);
+    public LoaiSanPham getById(Long id) {
+        Optional<LoaiSanPham> optional = loaiSanPhamReponsitory.findById(id);
         return optional.orElse(null);
     }
 
-    public Loaisanpham saveLoaiSanPham(Loaisanpham loaisanpham) {
+    public LoaiSanPham saveLoaiSanPham(LoaiSanPham loaisanpham) {
         return loaiSanPhamReponsitory.save(loaisanpham);
     }
 

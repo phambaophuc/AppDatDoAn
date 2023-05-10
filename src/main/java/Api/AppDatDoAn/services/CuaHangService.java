@@ -1,6 +1,6 @@
 package Api.AppDatDoAn.services;
 
-import Api.AppDatDoAn.entity.Cuahang;
+import Api.AppDatDoAn.entity.CuaHang;
 import Api.AppDatDoAn.reponsitory.ICuaHangReponsitory;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,27 +13,26 @@ public class CuaHangService {
     @Autowired
     private ICuaHangReponsitory cuaHangReponsitory;
 
-    public List<Cuahang> getAllCuaHang() {
+    public List<CuaHang> getAllCuaHang() {
         return cuaHangReponsitory.findAll();
     }
 
-    public Cuahang getCuaHangById(String maCuaHang) {
+    public CuaHang getCuaHangById(String maCuaHang) {
         return cuaHangReponsitory.findByMaCuaHang(maCuaHang);
     }
 
-    public Cuahang saveCuaHang(Cuahang cuahang) {
+    public CuaHang saveCuaHang(CuaHang cuahang) {
         updateMaChByTenCh(cuahang);
         return cuaHangReponsitory.save(cuahang);
     }
 
-    public void updateCuaHang(String id, Cuahang cuahang) {
-        Cuahang uCuaHang = cuaHangReponsitory.findByMaCuaHang(id);
+    public void updateCuaHang(String id, CuaHang cuahang) {
+        CuaHang uCuaHang = cuaHangReponsitory.findByMaCuaHang(id);
         uCuaHang.setTencuahang(cuahang.getTencuahang());
         uCuaHang.setHinhanh(cuahang.getHinhanh());
         uCuaHang.setDiachi(cuahang.getDiachi());
         uCuaHang.setSodienthoai(cuahang.getSodienthoai());
         uCuaHang.setLuotdanhgia(cuahang.getLuotdanhgia());
-        uCuaHang.setLuotmua(cuahang.getLuotmua());
         uCuaHang.setChatluong(cuahang.getChatluong());
         uCuaHang.setGiomocua(cuahang.getGiomocua());
         uCuaHang.setGiodongcua(cuahang.getGiodongcua());
@@ -42,7 +41,7 @@ public class CuaHangService {
         cuaHangReponsitory.save(uCuaHang);
     }
 
-    public void updateMaChByTenCh(Cuahang cuahang) {
+    public void updateMaChByTenCh(CuaHang cuahang) {
         String tencuahang = cuahang.getTencuahang();
         String maCuaHang = StringUtils.stripAccents(tencuahang)
                 .toLowerCase()
