@@ -1,9 +1,11 @@
-package Api.AppDatDoAn.apicontroller;
+package Api.AppDatDoAn.controller;
 
 import Api.AppDatDoAn.dto.KhachHangDto;
 import Api.AppDatDoAn.entity.KhachHang;
 import Api.AppDatDoAn.services.KhachHangService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +47,7 @@ public class KhachHangController {
     public ResponseEntity<?> getKhachHangById(@PathVariable UUID id) {
         KhachHang khachhang = khachHangService.getKhachHangById(id);
         if (khachhang == null) {
-            return ResponseEntity.badRequest().body("khách hàng không tồn tại.");
+            return ResponseEntity.badRequest().body("Không tìm thấy khách hàng có mã là: " + id);
         }
         KhachHangDto khachHangDto = converttoDto(khachhang);
         return ResponseEntity.status(200).body(khachHangDto);
@@ -53,13 +55,8 @@ public class KhachHangController {
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<?> addKhachHang(@RequestBody KhachHang khachhang, BindingResult result) {
-        if (result.hasErrors()) {
-            return ResponseEntity.badRequest().body(result.getAllErrors());
-        } else {
-            khachHangService.saveKhachHang(khachhang);
-            return ResponseEntity.ok(khachhang);
-        }
+    public ResponseEntity<KhachHang> addKhachHang(@Valid @RequestBody KhachHang khachhang) {
+        return new ResponseEntity<>(khachHangService.saveKhachHang(khachhang), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -68,7 +65,7 @@ public class KhachHangController {
         Optional<KhachHang> khachhangOptional = Optional.ofNullable(khachHangService.getKhachHangById(id));
 
         if (!khachhangOptional.isPresent()) {
-            return ResponseEntity.badRequest().body("Khách hàng không tồn tại.");
+            return ResponseEntity.badRequest().body("Không tìm thấy khách hàng có mã là: " + id);
         }
         khachHangService.updateKhachHang(id, khachhang);
         return ResponseEntity.ok("Đã cập nhật.");
@@ -77,6 +74,10 @@ public class KhachHangController {
     @DeleteMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> deleteKhachHang(@PathVariable UUID id) {
+        KhachHang khachHang = khachHangService.getKhachHangById(id);
+        if (khachHang == null) {
+            return ResponseEntity.badRequest().body("Không tìm thấy khách hàng có mã là: " + id);
+        }
         khachHangService.removeKhachHang(id);
         return ResponseEntity.ok("Đã xóa.");
     }

@@ -12,5 +12,5 @@ public class KhachHangDto {
 
     private String diachi;
 
-    private Long sodienthoai;
+    private String sodienthoai;
 }

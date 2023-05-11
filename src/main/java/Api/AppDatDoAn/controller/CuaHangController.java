@@ -1,9 +1,11 @@
-package Api.AppDatDoAn.apicontroller;
+package Api.AppDatDoAn.controller;
 
 import Api.AppDatDoAn.dto.CuaHangDto;
 import Api.AppDatDoAn.entity.CuaHang;
 import Api.AppDatDoAn.services.CuaHangService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +53,7 @@ public class CuaHangController {
     public ResponseEntity<?> getById(@PathVariable String id) {
         CuaHang cuahang = cuaHangService.getCuaHangById(id);
         if (cuahang == null) {
-            return ResponseEntity.badRequest().body("Cửa hàng không tồn tại.");
+            return ResponseEntity.badRequest().body("Không tìm thấy cửa hàng có mã là: " + id);
         }
         CuaHangDto cuaHangDto = converttoDto(cuahang);
         return ResponseEntity.status(200).body(cuaHangDto);
@@ -59,13 +61,9 @@ public class CuaHangController {
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<?> addCuaHang(@RequestBody CuaHang cuahang, BindingResult result) {
-        if (result.hasErrors()) {
-            return ResponseEntity.badRequest().body(result.getAllErrors());
-        } else {
-            cuaHangService.saveCuaHang(cuahang);
-            return ResponseEntity.ok(cuahang);
-        }
+    public ResponseEntity<CuaHang> addCuaHang(@Valid @RequestBody CuaHang cuahang) {
+        cuahang.setLuotdanhgia(0L);
+        return new ResponseEntity<>(cuaHangService.saveCuaHang(cuahang), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -74,18 +72,21 @@ public class CuaHangController {
         Optional<CuaHang> cuahangOptional = Optional.ofNullable(cuaHangService.getCuaHangById(id));
 
         if (!cuahangOptional.isPresent()) {
-            return ResponseEntity.badRequest().body("Cửa hàng không tồn tại.");
+            return ResponseEntity.badRequest().body("Không tìm thấy cửa hàng có mã là: " + id);
         }
 
         cuaHangService.updateCuaHang(id, cuahang);
-
         return ResponseEntity.ok("Đã cập nhật.");
     }
 
     @DeleteMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> deleteCuaHang(@PathVariable String id) {
+        CuaHang cuaHang = cuaHangService.getCuaHangById(id);
+        if (cuaHang == null) {
+            return ResponseEntity.badRequest().body("Không tìm thấy cửa hàng có mã là: " + id);
+        }
         cuaHangService.removeCuaHang(id);
-        return ResponseEntity.ok("Đã xóa.");
+        return ResponseEntity.ok("Đã xóa cửa hàng này.");
     }
 }

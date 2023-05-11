@@ -1,10 +1,12 @@
-package Api.AppDatDoAn.apicontroller;
+package Api.AppDatDoAn.controller;
 
 import Api.AppDatDoAn.dto.DonDatHangDto;
 import Api.AppDatDoAn.entity.DonDatHang;
 import Api.AppDatDoAn.services.DonDatHangService;
 import Api.AppDatDoAn.services.KhachHangService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -52,12 +54,7 @@ public class DonDatHangController {
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<?> addDonDatHang(@RequestBody DonDatHang donDatHang, BindingResult result) {
-        if (result.hasErrors()) {
-            return ResponseEntity.badRequest().body(result.getAllErrors());
-        } else {
-            donDatHangService.saveDDH(donDatHang);
-            return ResponseEntity.ok(donDatHang);
-        }
+    public ResponseEntity<DonDatHang> addDonDatHang(@Valid @RequestBody DonDatHang donDatHang) {
+        return new ResponseEntity<>(donDatHangService.saveDDH(donDatHang), HttpStatus.CREATED);
     }
 }

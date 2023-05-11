@@ -1,9 +1,11 @@
-package Api.AppDatDoAn.apicontroller;
+package Api.AppDatDoAn.controller;
 
 import Api.AppDatDoAn.dto.LoaiSanPhamDto;
 import Api.AppDatDoAn.entity.LoaiSanPham;
 import Api.AppDatDoAn.services.LoaiSanPhamService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -43,7 +45,7 @@ public class LoaiSanPhamController {
     public ResponseEntity<?> getById(@PathVariable Long id) {
         LoaiSanPham loaisanpham = loaiSanPhamService.getById(id);
         if (loaisanpham == null) {
-            return ResponseEntity.badRequest().body("Loại sản phẩm không tồn tại.");
+            return ResponseEntity.badRequest().body("Không tìm thấy loại sản phẩm có mã là: " + id);
         }
         LoaiSanPhamDto loaiSanPhamDto = converttoDto(loaisanpham);
         return ResponseEntity.status(200).body(loaiSanPhamDto);
@@ -51,13 +53,8 @@ public class LoaiSanPhamController {
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<?> addLoaiSanPham(@RequestBody LoaiSanPham loaisanpham, BindingResult result) {
-        if (result.hasErrors()) {
-            return ResponseEntity.badRequest().body(result.getAllErrors());
-        } else {
-            loaiSanPhamService.saveLoaiSanPham(loaisanpham);
-            return ResponseEntity.ok(loaisanpham);
-        }
+    public ResponseEntity<LoaiSanPham> addLoaiSanPham(@Valid @RequestBody LoaiSanPham loaisanpham) {
+        return new ResponseEntity<>(loaiSanPhamService.saveLoaiSanPham(loaisanpham), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -66,7 +63,7 @@ public class LoaiSanPhamController {
         Optional<LoaiSanPham> loaisanphamOptional = Optional.ofNullable(loaiSanPhamService.getById(id));
 
         if (!loaisanphamOptional.isPresent()) {
-            return ResponseEntity.badRequest().body("Loại sản phẩm không tồn tại.");
+            return ResponseEntity.badRequest().body("Không tìm thấy loại sản phẩm có mã là: " + id);
         }
 
         LoaiSanPham eLoaisanpham = loaisanphamOptional.get();
@@ -83,7 +80,7 @@ public class LoaiSanPhamController {
             loaiSanPhamService.removeLoaiSanPham(id);
             return ResponseEntity.ok("Đã xóa.");
         } else {
-            return ResponseEntity.badRequest().body("Loại sản phẩm không tồn tại");
+            return ResponseEntity.badRequest().body("Không tìm thấy loại sản phẩm có mã là: " + id);
         }
     }
 }

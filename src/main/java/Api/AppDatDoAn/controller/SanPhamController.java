@@ -1,11 +1,13 @@
-package Api.AppDatDoAn.apicontroller;
+package Api.AppDatDoAn.controller;
 
 import Api.AppDatDoAn.dto.SanPhamDto;
 import Api.AppDatDoAn.entity.SanPham;
 import Api.AppDatDoAn.services.CuaHangService;
 import Api.AppDatDoAn.services.LoaiSanPhamService;
 import Api.AppDatDoAn.services.SanPhamService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -57,7 +59,7 @@ public class SanPhamController {
     public ResponseEntity<?> getById(@PathVariable Long id) {
         SanPham sanpham = sanPhamService.getSanPhamById(id);
         if (sanpham == null) {
-            return ResponseEntity.badRequest().body("Sản phẩm không tồn tại.");
+            return ResponseEntity.badRequest().body("Không tìm thấy sản phẩm có mã là: " + id);
         }
         SanPhamDto sanPhamDto = converttoDto(sanpham);
         return ResponseEntity.status(200).body(sanPhamDto);
@@ -65,13 +67,9 @@ public class SanPhamController {
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<?> addSanPham(@RequestBody SanPham sanpham, BindingResult result) {
-        if (result.hasErrors()) {
-            return ResponseEntity.badRequest().body(result.getAllErrors());
-        } else {
-            sanPhamService.saveSanPham(sanpham);
-            return ResponseEntity.ok(sanpham);
-        }
+    public ResponseEntity<SanPham> addSanPham(@Valid @RequestBody SanPham sanpham) {
+        sanpham.setLuotmua(0L);
+        return new ResponseEntity<>(sanPhamService.saveSanPham(sanpham), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -80,7 +78,7 @@ public class SanPhamController {
         Optional<SanPham> sanphamOptional = Optional.ofNullable(sanPhamService.getSanPhamById(id));
 
         if (!sanphamOptional.isPresent()) {
-            return ResponseEntity.badRequest().body("Sản phẩm không tồn tại.");
+            return ResponseEntity.badRequest().body("Không tìm thấy sản phẩm có mã là: " + id);
         }
 
         SanPham eSanpham = sanphamOptional.get();
@@ -103,7 +101,7 @@ public class SanPhamController {
             sanPhamService.removeSanPham(id);
             return ResponseEntity.ok("Đã xóa.");
         } else {
-            return ResponseEntity.badRequest().body("Sản phẩm không tồn tại");
+            return ResponseEntity.badRequest().body("Không tìm thấy sản phẩm có mã là: " + id);
         }
     }
 

@@ -15,7 +15,7 @@ public class CuaHangDto {
 
     private String diachi;
 
-    private Long sodienthoai;
+    private String sodienthoai;
 
     private Long luotdanhgia;
 

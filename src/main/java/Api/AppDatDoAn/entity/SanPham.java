@@ -1,6 +1,8 @@
 package Api.AppDatDoAn.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.Set;
@@ -13,10 +15,12 @@ public class SanPham {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long masanpham;
 
-    @Column(name = "tensanpham", length = 255)
+    @NotNull(message = "Tên sản phẩm không được phép null")
+    @Column(name = "tensanpham", length = 64)
+    @Size(max = 64, message = "Chuỗi không được quá 64 ký tự")
     private String tensanpham;
 
-    @Column(name = "mota", length = 255)
+    @Column(name = "mota", length = 144)
     private String mota;
 
     @Column(name = "gia")
