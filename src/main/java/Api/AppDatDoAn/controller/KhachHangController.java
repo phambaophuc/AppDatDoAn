@@ -55,8 +55,8 @@ public class KhachHangController {
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<KhachHang> addKhachHang(@Valid @RequestBody KhachHang khachhang) {
-        return new ResponseEntity<>(khachHangService.saveKhachHang(khachhang), HttpStatus.CREATED);
+    public ResponseEntity<?> addKhachHang(@Valid @RequestBody KhachHang khachhang) {
+        return ResponseEntity.status(HttpStatus.CREATED).body("Thêm khách hàng thành công!");
     }
 
     @PutMapping("/{id}")
@@ -68,7 +68,7 @@ public class KhachHangController {
             return ResponseEntity.badRequest().body("Không tìm thấy khách hàng có mã là: " + id);
         }
         khachHangService.updateKhachHang(id, khachhang);
-        return ResponseEntity.ok("Đã cập nhật.");
+        return ResponseEntity.ok("Đã cập nhật thông tin khách hàng.");
     }
 
     @DeleteMapping("/{id}")
@@ -79,6 +79,6 @@ public class KhachHangController {
             return ResponseEntity.badRequest().body("Không tìm thấy khách hàng có mã là: " + id);
         }
         khachHangService.removeKhachHang(id);
-        return ResponseEntity.ok("Đã xóa.");
+        return ResponseEntity.ok("Đã xóa khách hàng.");
     }
 }

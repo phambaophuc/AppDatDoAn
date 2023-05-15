@@ -61,9 +61,9 @@ public class CuaHangController {
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<CuaHang> addCuaHang(@Valid @RequestBody CuaHang cuahang) {
+    public ResponseEntity<?> addCuaHang(@Valid @RequestBody CuaHang cuahang) {
         cuahang.setLuotdanhgia(0L);
-        return new ResponseEntity<>(cuaHangService.saveCuaHang(cuahang), HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Thêm cửa hàng thành công!");
     }
 
     @PutMapping("/{id}")
@@ -76,7 +76,7 @@ public class CuaHangController {
         }
 
         cuaHangService.updateCuaHang(id, cuahang);
-        return ResponseEntity.ok("Đã cập nhật.");
+        return ResponseEntity.ok("Đã cập nhật cửa hàng.");
     }
 
     @DeleteMapping("/{id}")

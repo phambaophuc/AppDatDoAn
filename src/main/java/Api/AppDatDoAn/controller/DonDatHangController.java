@@ -46,15 +46,27 @@ public class DonDatHangController {
         return donDatHangDtos;
     }
 
+    @GetMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<?> getDDHById(@PathVariable String id) {
+        DonDatHang donDatHang = donDatHangService.getDDHById(id);
+        if (donDatHang == null) {
+            return ResponseEntity.badRequest().body("Không tìm thấy đơn đặt hàng có mã là: " + id);
+        }
+        DonDatHangDto donDatHangDto = converttoDto(donDatHang);
+        return ResponseEntity.ok(donDatHangDto);
+    }
+
     @GetMapping("/thong-tin-dat-hang/{id}")
     @ResponseBody
-    public List<Object[]> layThongTinDatHangCuaKhachHang(@PathVariable UUID id) {
+    public List<Object[]> layThongTinDatHangCuaKhachHang(@PathVariable String id) {
         return donDatHangService.LayThongTinDatHangTheoKhachHang(id);
     }
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<DonDatHang> addDonDatHang(@Valid @RequestBody DonDatHang donDatHang) {
-        return new ResponseEntity<>(donDatHangService.saveDDH(donDatHang), HttpStatus.CREATED);
+    public ResponseEntity<?> addDonDatHang(@Valid @RequestBody DonDatHang donDatHang) {
+        donDatHangService.saveDDH(donDatHang);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Thêm đơn đặt hàng thành công!");
     }
 }

@@ -1,23 +1,22 @@
 package Api.AppDatDoAn.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.Set;
-import java.util.UUID;
 
 @Data
 @Entity
 @Table(name = "dondathang")
 public class DonDatHang {
     @Id
-    @GeneratedValue
-    private UUID madondathang;
+    private String madondathang;
 
     @Column(name = "ngaydat")
-    private Date ngaydat;
+    private LocalDate ngaydat;
 
     @Column(name = "tinhtrang")
     private String tinhtrang;
@@ -27,8 +26,17 @@ public class DonDatHang {
 
     @ManyToOne
     @JoinColumn(name = "khachhang_id")
+    @NotNull(message = "Vui lòng nhập mã khách hàng")
     private KhachHang khachhang;
 
     @OneToMany(mappedBy = "dondathang")
     private Set<ChiTietDonDatHang> chiTietDonDatHangs;
+
+    @OneToOne(mappedBy = "donDatHang")
+    private HoaDon hoaDon;
+
+    @PrePersist
+    public void prePersistNgayDat() {
+        this.ngaydat = LocalDate.now();
+    }
 }

@@ -67,9 +67,9 @@ public class SanPhamController {
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<SanPham> addSanPham(@Valid @RequestBody SanPham sanpham) {
+    public ResponseEntity<?> addSanPham(@Valid @RequestBody SanPham sanpham) {
         sanpham.setLuotmua(0L);
-        return new ResponseEntity<>(sanPhamService.saveSanPham(sanpham), HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Thêm sản phẩm thành công!");
     }
 
     @PutMapping("/{id}")
@@ -91,7 +91,7 @@ public class SanPhamController {
         eSanpham.setCuahang(sanpham.getCuahang());
 
         sanPhamService.saveSanPham(eSanpham);
-        return ResponseEntity.ok("Đã cập nhật.");
+        return ResponseEntity.ok("Đã cập nhật thông tin sản phẩm.");
     }
 
     @DeleteMapping("/{id}")
@@ -99,7 +99,7 @@ public class SanPhamController {
     public ResponseEntity<?> deleteSanPham(@PathVariable Long id) {
         if (sanPhamService.getSanPhamById(id) != null) {
             sanPhamService.removeSanPham(id);
-            return ResponseEntity.ok("Đã xóa.");
+            return ResponseEntity.ok("Đã xóa sản phẩm.");
         } else {
             return ResponseEntity.badRequest().body("Không tìm thấy sản phẩm có mã là: " + id);
         }
@@ -107,7 +107,7 @@ public class SanPhamController {
 
     @GetMapping("/search")
     public ResponseEntity<?> timKiemSanPham(@RequestParam(value = "name", required = false) String name,
-                                                   @RequestParam(value = "theloai", required = false) Long theloai) {
+                                           @RequestParam(value = "theloai", required = false) Long theloai) {
         if (name != null && theloai == null) {
             List<SanPham> sanphams = sanPhamService.timKiemTheoTen(name);
             List<SanPhamDto> sanPhamDtos = new ArrayList<>();

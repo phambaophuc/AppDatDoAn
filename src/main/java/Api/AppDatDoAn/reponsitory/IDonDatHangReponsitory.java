@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface IDonDatHangReponsitory extends JpaRepository<DonDatHang, UUID> {
+public interface IDonDatHangReponsitory extends JpaRepository<DonDatHang, String> {
     @Query("SELECT ddh FROM DonDatHang ddh WHERE ddh.madondathang = ?1")
-    DonDatHang findByDDHById(UUID id);
+    DonDatHang findByDDHById(String id);
 
     @Query("SELECT kh.tenkhachhang, sp.tensanpham, ddh.ngaydat, ddh.giohen, ddh.tinhtrang " +
             "FROM SanPham sp " +
@@ -20,5 +20,5 @@ public interface IDonDatHangReponsitory extends JpaRepository<DonDatHang, UUID> 
             "JOIN DonDatHang ddh ON ctdh.id.madondathang = ddh.madondathang " +
             "JOIN KhachHang kh ON kh.makhachhang = ddh.khachhang.makhachhang " +
             "WHERE kh.makhachhang = :id")
-    List<Object[]> LayThongTinDatHangTheoKhachHang(UUID id);
+    List<Object[]> LayThongTinDatHangTheoKhachHang(String id);
 }

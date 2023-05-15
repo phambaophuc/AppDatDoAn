@@ -12,5 +12,5 @@ public class ChiTietDonDatHangKey implements Serializable {
     private Long masanpham;
 
     @Column(name = "madondathang")
-    private UUID madondathang;
+    private String madondathang;
 }

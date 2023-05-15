@@ -53,8 +53,8 @@ public class LoaiSanPhamController {
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<LoaiSanPham> addLoaiSanPham(@Valid @RequestBody LoaiSanPham loaisanpham) {
-        return new ResponseEntity<>(loaiSanPhamService.saveLoaiSanPham(loaisanpham), HttpStatus.CREATED);
+    public ResponseEntity<?> addLoaiSanPham(@Valid @RequestBody LoaiSanPham loaisanpham) {
+        return ResponseEntity.status(HttpStatus.CREATED).body("Thêm loại sản phẩm thành công!");
     }
 
     @PutMapping("/{id}")
@@ -70,7 +70,7 @@ public class LoaiSanPhamController {
         eLoaisanpham.setTenloai(loaisanpham.getTenloai());
 
         loaiSanPhamService.saveLoaiSanPham(eLoaisanpham);
-        return ResponseEntity.ok("Đã cập nhật.");
+        return ResponseEntity.ok("Đã cập nhật thông tin loại sản phẩm.");
     }
 
     @DeleteMapping("/{id}")
