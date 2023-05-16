@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +27,13 @@ public class HoaDonController {
     private DonDatHangService donDatHangService;
 
     private HoaDonDto converttoDto(HoaDon hoaDon) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        Double formattedNumber = Double.valueOf(decimalFormat.format(hoaDon.getTongtien()));
+
         HoaDonDto hoaDonDto = new HoaDonDto();
         hoaDonDto.setMahoadon(hoaDon.getMahoadon());
         hoaDonDto.setNgaylap(hoaDon.getNgaylap());
-        hoaDonDto.setTongtien(hoaDonDto.getTongtien());
+        hoaDonDto.setTongtien(formattedNumber);
         hoaDonDto.setTenkhachhang(donDatHangService.getDDHById(hoaDon.getDonDatHang().getMadondathang()).getKhachhang().getTenkhachhang());
 
         return hoaDonDto;
@@ -51,6 +55,7 @@ public class HoaDonController {
     public ResponseEntity<?> addHoaDon(@Valid @RequestBody HoaDon hoaDon) {
         DonDatHang donDatHang = donDatHangService.getDDHById(hoaDon.getDonDatHang().getMadondathang());
         hoaDon.setDonDatHang(donDatHang);
+        hoaDonService.saveHoaDon(hoaDon);
         return ResponseEntity.status(HttpStatus.CREATED).body("Thêm hóa đơn thành công!");
     }
 }

@@ -5,6 +5,8 @@ import Api.AppDatDoAn.reponsitory.IHoaDonReponsitory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -20,7 +22,15 @@ public class HoaDonService {
         return hoaDonReponsitory.findAll();
     }
 
-    public HoaDon saveHoaDon(HoaDon hoaDon) {
-        return hoaDonReponsitory.save(hoaDon);
+    public void saveHoaDon(HoaDon hoaDon) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
+        String formattedDateTime = now.format(formatter);
+
+        String maHoaDon = "HD" + formattedDateTime;
+        hoaDon.setMahoadon(maHoaDon);
+
+        hoaDonReponsitory.save(hoaDon);
+        hoaDonReponsitory.tinhTongTien(hoaDon.getMahoadon());
     }
 }

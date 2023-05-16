@@ -33,8 +33,8 @@ public class DonDatHangService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
         String formattedDateTime = now.format(formatter);
 
-        String maHoaDon = "DDH" + formattedDateTime;
-        donDatHang.setMadondathang(maHoaDon);
+        String maDDH = "DDH" + formattedDateTime;
+        donDatHang.setMadondathang(maDDH);
 
         return donDatHangReponsitory.save(donDatHang);
     }

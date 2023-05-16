@@ -28,4 +28,5 @@ public class HoaDon {
     public void preNgayLap() {
         this.ngaylap = new Date();
     }
+
 }
