@@ -23,6 +23,7 @@ public class CuaHangController {
 
     private CuaHangDto converttoDto(CuaHang cuahang) {
         CuaHangDto cuaHangDto = new CuaHangDto();
+        String chatluong = String.format("%.1f", cuahang.getChatluong());
         cuaHangDto.setMacuahang(cuahang.getMacuahang());
         cuaHangDto.setTencuahang(cuahang.getTencuahang());
         cuaHangDto.setHinhanh(cuahang.getHinhanh());
@@ -30,7 +31,7 @@ public class CuaHangController {
         cuaHangDto.setTinhtrang(cuahang.getTinhtrang());
         cuaHangDto.setSodienthoai(cuahang.getSodienthoai());
         cuaHangDto.setLuotdanhgia(cuahang.getLuotdanhgia());
-        cuaHangDto.setChatluong(cuahang.getChatluong());
+        cuaHangDto.setChatluong(Double.parseDouble(chatluong));
         cuaHangDto.setGiomocua(cuahang.getGiomocua());
         cuaHangDto.setGiodongcua(cuahang.getGiodongcua());
         cuaHangDto.setTinhtrang(cuahang.getTinhtrang());
@@ -88,5 +89,28 @@ public class CuaHangController {
         }
         cuaHangService.removeCuaHang(id);
         return ResponseEntity.ok("Đã xóa cửa hàng này.");
+    }
+
+
+    // Chức năng đánh giá cửa hàng
+    @PostMapping("/{macuahang}/danhgia")
+    @ResponseBody
+    public ResponseEntity<?> danhgiacuahang(@PathVariable String macuahang,
+                                            @RequestParam("chatluong") int diemDanhGia) {
+        Optional<CuaHang> optionalCuaHang = Optional.ofNullable(cuaHangService.getCuaHangById(macuahang));
+        if (!optionalCuaHang.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        CuaHang cuaHang = optionalCuaHang.get();
+        long luotDanhGiaMoi = cuaHang.getLuotdanhgia() + 1;
+        double chatLuongMoi = (cuaHang.getChatluong() * cuaHang.getLuotdanhgia() + diemDanhGia) / luotDanhGiaMoi;
+
+
+        cuaHang.setLuotdanhgia(luotDanhGiaMoi);
+        cuaHang.setChatluong(chatLuongMoi);
+
+        cuaHangService.saveCuaHang(cuaHang);
+        return ResponseEntity.ok("Bạn đã đánh giá cửa hàng " + cuaHang.getTencuahang() + " " + diemDanhGia + " sao. Xin cảm ơn");
     }
 }

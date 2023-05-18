@@ -1,7 +1,6 @@
 package Api.AppDatDoAn.controller;
 
 import Api.AppDatDoAn.dto.HoaDonDto;
-import Api.AppDatDoAn.entity.ChiTietDonDatHang;
 import Api.AppDatDoAn.entity.DonDatHang;
 import Api.AppDatDoAn.entity.HoaDon;
 import Api.AppDatDoAn.services.DonDatHangService;

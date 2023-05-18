@@ -1,19 +1,20 @@
 package Api.AppDatDoAn.controller;
 
 import Api.AppDatDoAn.dto.DonDatHangDto;
+import Api.AppDatDoAn.dto.SanPhamDto;
+import Api.AppDatDoAn.entity.ChiTietDonDatHang;
 import Api.AppDatDoAn.entity.DonDatHang;
+import Api.AppDatDoAn.entity.SanPham;
 import Api.AppDatDoAn.services.DonDatHangService;
 import Api.AppDatDoAn.services.KhachHangService;
+import Api.AppDatDoAn.services.SanPhamService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @CrossOrigin("*")
@@ -59,7 +60,7 @@ public class DonDatHangController {
 
     @GetMapping("/thong-tin-dat-hang/{id}")
     @ResponseBody
-    public List<Object[]> layThongTinDatHangCuaKhachHang(@PathVariable String id) {
+    public List<Object[]> layThongTinDatHangCuaKhachHang(@PathVariable UUID id) {
         return donDatHangService.LayThongTinDatHangTheoKhachHang(id);
     }
 

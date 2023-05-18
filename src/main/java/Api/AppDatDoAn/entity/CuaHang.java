@@ -1,9 +1,7 @@
 package Api.AppDatDoAn.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.sql.Time;
@@ -37,7 +35,7 @@ public class CuaHang {
     private Long luotdanhgia;
 
     @Column(name = "chatluong")
-    private int chatluong;
+    private double chatluong;
 
     @Column(name = "giomocua")
     private Time giomocua;
@@ -50,4 +48,12 @@ public class CuaHang {
 
     @OneToMany(mappedBy = "cuahang", cascade = CascadeType.ALL)
     private List<SanPham> sanphams;
+
+    public void setChatluong(double chatluong) {
+        if (chatluong > 5) {
+            this.chatluong = 5;
+        } else {
+            this.chatluong = chatluong;
+        }
+    }
 }

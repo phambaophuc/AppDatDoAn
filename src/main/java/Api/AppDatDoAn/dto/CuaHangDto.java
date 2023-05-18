@@ -18,7 +18,7 @@ public class CuaHangDto {
 
     private Long luotdanhgia;
 
-    private int chatluong;
+    private double chatluong;
 
     private Date giomocua;
 

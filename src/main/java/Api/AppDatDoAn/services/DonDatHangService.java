@@ -20,7 +20,7 @@ public class DonDatHangService {
         return donDatHangReponsitory.findByDDHById(id);
     }
 
-    public List<Object[]> LayThongTinDatHangTheoKhachHang(String id) {
+    public List<Object[]> LayThongTinDatHangTheoKhachHang(UUID id) {
         return donDatHangReponsitory.LayThongTinDatHangTheoKhachHang(id);
     }
 
