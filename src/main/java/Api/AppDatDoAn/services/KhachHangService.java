@@ -2,18 +2,18 @@ package Api.AppDatDoAn.services;
 
 import Api.AppDatDoAn.entity.KhachHang;
 import Api.AppDatDoAn.reponsitory.IKhachHangReponsitory;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class KhachHangService {
     @Autowired
     private IKhachHangReponsitory khachHangReponsitory;
 
-    public KhachHang getKhachHangById(UUID id) {
+    public KhachHang getKhachHangById(String id) {
         return khachHangReponsitory.findByMaKhachHang(id);
     }
 
@@ -22,10 +22,12 @@ public class KhachHangService {
     }
 
     public KhachHang saveKhachHang(KhachHang khachhang) {
+        String makh = RandomStringUtils.randomAlphanumeric(10);
+        khachhang.setMakhachhang(makh);
         return khachHangReponsitory.save(khachhang);
     }
 
-    public void updateKhachHang(UUID id, KhachHang khachhang) {
+    public void updateKhachHang(String id, KhachHang khachhang) {
         KhachHang eKhachhang = khachHangReponsitory.findByMaKhachHang(id);
         eKhachhang.setTenkhachhang(khachhang.getTenkhachhang());
         eKhachhang.setSodienthoai(khachhang.getSodienthoai());
@@ -33,7 +35,7 @@ public class KhachHangService {
         khachHangReponsitory.save(eKhachhang);
     }
 
-    public void removeKhachHang(UUID id) {
+    public void removeKhachHang(String id) {
         khachHangReponsitory.deleteById(id);
     }
 }

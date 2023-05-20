@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class SanPhamDto {
-    private Long masanpham;
+    private String masanpham;
 
     private String tensanpham;
 

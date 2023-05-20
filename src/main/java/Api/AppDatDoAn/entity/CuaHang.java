@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "cuahang")
 public class CuaHang {
     @Id
-    @Column(name = "macuahang", columnDefinition = "VARCHAR(144)", unique = true)
+    @Column(name = "macuahang", length = 10, unique = true)
     private String macuahang;
 
     @NotNull(message = "Tên cửa hàng không được phép null")

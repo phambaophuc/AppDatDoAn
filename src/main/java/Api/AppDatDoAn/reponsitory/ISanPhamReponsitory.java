@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface ISanPhamReponsitory extends JpaRepository<SanPham, Long> {
+public interface ISanPhamReponsitory extends JpaRepository<SanPham, String> {
     @Query("SELECT sp FROM SanPham sp WHERE " +
             "sp.tensanpham LIKE CONCAT('%',:query, '%')")
     List<SanPham> searchByName(String query);

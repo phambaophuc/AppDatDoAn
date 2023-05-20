@@ -54,6 +54,7 @@ public class LoaiSanPhamController {
     @PostMapping("/add")
     @ResponseBody
     public ResponseEntity<?> addLoaiSanPham(@Valid @RequestBody LoaiSanPham loaisanpham) {
+        loaiSanPhamService.saveLoaiSanPham(loaisanpham);
         return ResponseEntity.status(HttpStatus.CREATED).body("Thêm loại sản phẩm thành công!");
     }
 

@@ -2,6 +2,7 @@ package Api.AppDatDoAn.services;
 
 import Api.AppDatDoAn.entity.HoaDon;
 import Api.AppDatDoAn.reponsitory.IHoaDonReponsitory;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +24,7 @@ public class HoaDonService {
     }
 
     public void saveHoaDon(HoaDon hoaDon) {
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
-        String formattedDateTime = now.format(formatter);
-
-        String maHoaDon = "HD" + formattedDateTime;
+        String maHoaDon = RandomStringUtils.randomAlphanumeric(10);
         hoaDon.setMahoadon(maHoaDon);
 
         hoaDonReponsitory.save(hoaDon);

@@ -7,7 +7,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ public class KhachHangController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<?> getKhachHangById(@PathVariable UUID id) {
+    public ResponseEntity<?> getKhachHangById(@PathVariable String id) {
         KhachHang khachhang = khachHangService.getKhachHangById(id);
         if (khachhang == null) {
             return ResponseEntity.badRequest().body("Không tìm thấy khách hàng có mã là: " + id);
@@ -56,12 +55,13 @@ public class KhachHangController {
     @PostMapping("/add")
     @ResponseBody
     public ResponseEntity<?> addKhachHang(@Valid @RequestBody KhachHang khachhang) {
+        khachHangService.saveKhachHang(khachhang);
         return ResponseEntity.status(HttpStatus.CREATED).body("Thêm khách hàng thành công!");
     }
 
     @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<?> editKhachHang(@PathVariable UUID id, @RequestBody KhachHang khachhang) {
+    public ResponseEntity<?> editKhachHang(@PathVariable String id, @RequestBody KhachHang khachhang) {
         Optional<KhachHang> khachhangOptional = Optional.ofNullable(khachHangService.getKhachHangById(id));
 
         if (!khachhangOptional.isPresent()) {
@@ -73,7 +73,7 @@ public class KhachHangController {
 
     @DeleteMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<?> deleteKhachHang(@PathVariable UUID id) {
+    public ResponseEntity<?> deleteKhachHang(@PathVariable String id) {
         KhachHang khachHang = khachHangService.getKhachHangById(id);
         if (khachHang == null) {
             return ResponseEntity.badRequest().body("Không tìm thấy khách hàng có mã là: " + id);

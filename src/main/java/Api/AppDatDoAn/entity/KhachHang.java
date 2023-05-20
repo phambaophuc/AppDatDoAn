@@ -7,15 +7,14 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Entity
 @Table(name = "khachhang")
 public class KhachHang {
     @Id
-    @GeneratedValue
-    private UUID makhachhang;
+    @Column(name = "makhachhang", length = 10, unique = true)
+    private String makhachhang;
 
     @NotNull(message = "Tên khách hàng không được phép null")
     @Column(name = "tenkhachhang", length = 64)

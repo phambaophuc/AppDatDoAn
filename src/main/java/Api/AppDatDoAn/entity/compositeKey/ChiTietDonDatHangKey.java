@@ -9,7 +9,7 @@ import java.util.UUID;
 @Embeddable
 public class ChiTietDonDatHangKey implements Serializable {
     @Column(name = "masanpham")
-    private Long masanpham;
+    private String masanpham;
 
     @Column(name = "madondathang")
     private String madondathang;

@@ -2,6 +2,7 @@ package Api.AppDatDoAn.services;
 
 import Api.AppDatDoAn.entity.DonDatHang;
 import Api.AppDatDoAn.reponsitory.IDonDatHangReponsitory;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +30,8 @@ public class DonDatHangService {
     }
 
     public DonDatHang saveDDH(DonDatHang donDatHang) {
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
-        String formattedDateTime = now.format(formatter);
 
-        String maDDH = "DDH" + formattedDateTime;
+        String maDDH = RandomStringUtils.randomAlphanumeric(10);
         donDatHang.setMadondathang(maDDH);
 
         return donDatHangReponsitory.save(donDatHang);

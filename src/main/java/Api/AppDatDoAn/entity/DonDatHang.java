@@ -13,6 +13,7 @@ import java.util.Set;
 @Table(name = "dondathang")
 public class DonDatHang {
     @Id
+    @Column(name = "madondathang", length = 10, unique = true)
     private String madondathang;
 
     @Column(name = "ngaydat")
@@ -29,7 +30,7 @@ public class DonDatHang {
     @NotNull(message = "Vui lòng nhập mã khách hàng")
     private KhachHang khachhang;
 
-    @OneToMany(mappedBy = "dondathang")
+    @OneToMany(mappedBy = "dondathang", cascade = CascadeType.ALL)
     private Set<ChiTietDonDatHang> chiTietDonDatHangs;
 
     @OneToOne(mappedBy = "donDatHang")

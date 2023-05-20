@@ -2,7 +2,7 @@ package Api.AppDatDoAn.services;
 
 import Api.AppDatDoAn.entity.CuaHang;
 import Api.AppDatDoAn.reponsitory.ICuaHangReponsitory;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,9 @@ public class CuaHangService {
     }
 
     public CuaHang saveCuaHang(CuaHang cuahang) {
-        updateMaChByTenCh(cuahang);
+        String macuahang = RandomStringUtils.randomAlphanumeric(10);
+        cuahang.setMacuahang(macuahang);
+        cuahang.setLuotdanhgia(0L);
         return cuaHangReponsitory.save(cuahang);
     }
 
@@ -37,18 +39,7 @@ public class CuaHangService {
         uCuaHang.setGiomocua(cuahang.getGiomocua());
         uCuaHang.setGiodongcua(cuahang.getGiodongcua());
         uCuaHang.setTinhtrang(cuahang.getTinhtrang());
-        updateMaChByTenCh(uCuaHang);
         cuaHangReponsitory.save(uCuaHang);
-    }
-
-    public void updateMaChByTenCh(CuaHang cuahang) {
-        String tencuahang = cuahang.getTencuahang();
-        String maCuaHang = StringUtils.stripAccents(tencuahang)
-                .toLowerCase()
-                .replace("đ", "d")
-                .replaceAll("[^a-zA-Z0-9-]+", "-");
-
-        cuahang.setMacuahang(maCuaHang);
     }
 
     public void removeCuaHang(String id) {

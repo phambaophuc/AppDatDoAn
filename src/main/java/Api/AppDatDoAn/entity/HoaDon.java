@@ -11,6 +11,7 @@ import java.util.Date;
 @Table(name = "hoadon")
 public class HoaDon {
     @Id
+    @Column(name = "mahoadon", length = 10, unique = true)
     private String mahoadon;
 
     @Column(name = "ngaylap")

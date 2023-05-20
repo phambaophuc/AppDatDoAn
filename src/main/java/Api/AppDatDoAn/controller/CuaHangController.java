@@ -63,7 +63,7 @@ public class CuaHangController {
     @PostMapping("/add")
     @ResponseBody
     public ResponseEntity<?> addCuaHang(@Valid @RequestBody CuaHang cuahang) {
-        cuahang.setLuotdanhgia(0L);
+        cuaHangService.saveCuaHang(cuahang);
         return ResponseEntity.status(HttpStatus.CREATED).body("Thêm cửa hàng thành công!");
     }
 

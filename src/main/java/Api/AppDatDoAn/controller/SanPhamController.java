@@ -56,7 +56,7 @@ public class SanPhamController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<?> getById(@PathVariable Long id) {
+    public ResponseEntity<?> getById(@PathVariable String id) {
         SanPham sanpham = sanPhamService.getSanPhamById(id);
         if (sanpham == null) {
             return ResponseEntity.badRequest().body("Không tìm thấy sản phẩm có mã là: " + id);
@@ -68,13 +68,13 @@ public class SanPhamController {
     @PostMapping("/add")
     @ResponseBody
     public ResponseEntity<?> addSanPham(@Valid @RequestBody SanPham sanpham) {
-        sanpham.setLuotmua(0L);
+        sanPhamService.saveSanPham(sanpham);
         return ResponseEntity.status(HttpStatus.CREATED).body("Thêm sản phẩm thành công!");
     }
 
     @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<?> editSanPham(@PathVariable Long id, @RequestBody SanPham sanpham) {
+    public ResponseEntity<?> editSanPham(@PathVariable String id, @RequestBody SanPham sanpham) {
         Optional<SanPham> sanphamOptional = Optional.ofNullable(sanPhamService.getSanPhamById(id));
 
         if (!sanphamOptional.isPresent()) {
@@ -90,13 +90,13 @@ public class SanPhamController {
         eSanpham.setLoaisanpham(sanpham.getLoaisanpham());
         eSanpham.setCuahang(sanpham.getCuahang());
 
-        sanPhamService.saveSanPham(eSanpham);
+        sanPhamService.updateSanPham(eSanpham);
         return ResponseEntity.ok("Đã cập nhật thông tin sản phẩm.");
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<?> deleteSanPham(@PathVariable Long id) {
+    public ResponseEntity<?> deleteSanPham(@PathVariable String id) {
         if (sanPhamService.getSanPhamById(id) != null) {
             sanPhamService.removeSanPham(id);
             return ResponseEntity.ok("Đã xóa sản phẩm.");

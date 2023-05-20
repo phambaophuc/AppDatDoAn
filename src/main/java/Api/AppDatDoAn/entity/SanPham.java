@@ -12,8 +12,8 @@ import java.util.Set;
 @Table(name = "sanpham")
 public class SanPham {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long masanpham;
+    @Column(name = "masanpham", length = 10, unique = true)
+    private String masanpham;
 
     @NotNull(message = "Tên sản phẩm không được phép null")
     @Column(name = "tensanpham", length = 64)
@@ -43,6 +43,6 @@ public class SanPham {
     @JoinColumn(name = "cuahang_id", nullable = false)
     private CuaHang cuahang;
 
-    @OneToMany(mappedBy = "sanpham")
+    @OneToMany(mappedBy = "sanpham", cascade = CascadeType.ALL)
     private Set<ChiTietDonDatHang> chiTietDonDatHangs;
 }
