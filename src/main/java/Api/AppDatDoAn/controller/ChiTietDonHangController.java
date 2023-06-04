@@ -1,8 +1,6 @@
 package Api.AppDatDoAn.controller;
 
 import Api.AppDatDoAn.services.ChiTietDonDatHangService;
-import Api.AppDatDoAn.services.DonDatHangService;
-import Api.AppDatDoAn.services.SanPhamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +15,9 @@ public class ChiTietDonHangController {
     // Tạo chi tiết đơn hàng theo mã sản phẩm và mã đơn hàng
     @PostMapping("/{masanpham}/{madondathang}")
     public ResponseEntity<?> createChiTietDonHang(@PathVariable("masanpham")String masanPham,
-                                               @PathVariable("madondathang")String madondathang) {
-        chiTietDonDatHangService.createChiTietDDH(masanPham, madondathang, 1L);
+                                                  @PathVariable("madondathang")String madondathang,
+                                                  @RequestParam(value = "soluong", required = false) Long soluong) {
+        chiTietDonDatHangService.createChiTietDDH(masanPham, madondathang, soluong);
         return ResponseEntity.ok("Thêm chi tiết đơn hàng thành công.");
     }
 

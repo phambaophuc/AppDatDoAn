@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @RestController
@@ -56,5 +57,25 @@ public class HoaDonController {
         hoaDon.setDonDatHang(donDatHang);
         hoaDonService.saveHoaDon(hoaDon);
         return ResponseEntity.status(HttpStatus.CREATED).body("Thêm hóa đơn thành công!");
+    }
+
+    @GetMapping("/thong-ke")
+    public ResponseEntity<?> thongKe(@RequestParam("thang") int thang, @RequestParam("nam") int nam) {
+        List<HoaDon> danhSachHoaDon = hoaDonService.getAllHoaDon();
+        double tongTien = 0;
+
+        for (HoaDon hoaDon : danhSachHoaDon) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(hoaDon.getNgaylap());
+
+            int hoaDonThang = calendar.get(Calendar.MONTH) + 1;
+            int hoaDonNam = calendar.get(Calendar.YEAR);
+
+            if (hoaDonThang == thang && hoaDonNam == nam) {
+                tongTien += hoaDon.getTongtien();
+            }
+        }
+
+        return ResponseEntity.ok().body("Tổng tiền của tháng " + thang + " năm " + nam + " là: " + tongTien);
     }
 }
