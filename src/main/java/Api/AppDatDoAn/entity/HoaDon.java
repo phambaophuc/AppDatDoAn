@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -15,7 +15,7 @@ public class HoaDon {
     private String mahoadon;
 
     @Column(name = "ngaylap")
-    private Date ngaylap;
+    private LocalDate ngaylap;
 
     @Column(name = "tongtien")
     private Double tongtien;
@@ -27,7 +27,7 @@ public class HoaDon {
 
     @PrePersist
     public void preNgayLap() {
-        this.ngaylap = new Date();
+        this.ngaylap = LocalDate.now();
     }
 
 }

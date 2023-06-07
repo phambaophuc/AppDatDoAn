@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
-import java.sql.Time;
+import java.time.LocalTime;
 import java.util.List;
 
 @Data
@@ -15,7 +15,7 @@ public class CuaHang {
     @Column(name = "macuahang", length = 10, unique = true)
     private String macuahang;
 
-    @NotNull(message = "Tên cửa hàng không được phép null")
+    @NotBlank(message = "Tên cửa hàng không được phép bỏ trống")
     @Size(max = 64, message = "Chuỗi không được quá 64 ký tự")
     @Column(name = "tencuahang", length = 64)
     private String tencuahang;
@@ -23,7 +23,7 @@ public class CuaHang {
     @Column(name = "hinhanh")
     private String hinhanh;
 
-    @NotNull(message = "Địa chỉ không được phép null")
+    @NotBlank(message = "Địa chỉ không được phép bỏ trống")
     @Column(name = "diachi", length = 255)
     private String diachi;
 
@@ -38,10 +38,10 @@ public class CuaHang {
     private double chatluong;
 
     @Column(name = "giomocua")
-    private Time giomocua;
+    private LocalTime giomocua;
 
     @Column(name = "giodongcua")
-    private Time giodongcua;
+    private LocalTime giodongcua;
 
     @Column(name = "tinhtrang", length = 255)
     private String tinhtrang;

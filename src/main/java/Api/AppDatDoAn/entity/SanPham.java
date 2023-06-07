@@ -1,7 +1,7 @@
 package Api.AppDatDoAn.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -15,7 +15,7 @@ public class SanPham {
     @Column(name = "masanpham", length = 10, unique = true)
     private String masanpham;
 
-    @NotNull(message = "Tên sản phẩm không được phép null")
+    @NotBlank(message = "Tên sản phẩm không được phép bỏ trống")
     @Column(name = "tensanpham", length = 64)
     @Size(max = 64, message = "Chuỗi không được quá 64 ký tự")
     private String tensanpham;
@@ -45,4 +45,7 @@ public class SanPham {
 
     @OneToMany(mappedBy = "sanpham", cascade = CascadeType.ALL)
     private Set<ChiTietDonDatHang> chiTietDonDatHangs;
+
+    @OneToMany(mappedBy = "sanpham", cascade = CascadeType.ALL)
+    private Set<DiKem> diKems;
 }

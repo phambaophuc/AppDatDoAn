@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Set;
 
 @Data
@@ -23,7 +23,7 @@ public class DonDatHang {
     private String tinhtrang;
 
     @Column(name = "giohen")
-    private Time giohen;
+    private LocalTime giohen;
 
     @ManyToOne
     @JoinColumn(name = "khachhang_id")
