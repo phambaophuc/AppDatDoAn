@@ -48,4 +48,8 @@ public class AccountService {
         }
     }
 
+    public void removeRoleFromAccount(UUID accountId, UUID roleId) {
+        accountRepository.removeRoleFromAccount(accountId, roleId);
+    }
+
 }

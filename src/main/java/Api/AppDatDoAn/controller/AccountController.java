@@ -20,6 +20,13 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
+    @GetMapping("/account")
+    public String getAllAccounts(Model model) {
+        List<Account> accounts = accountService.getAllAccounts();
+        model.addAttribute("accounts", accounts);
+        return "account/list-account";
+    }
+
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("account", new Account());

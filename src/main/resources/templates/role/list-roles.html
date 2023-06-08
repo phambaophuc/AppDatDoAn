@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="">
 <head>
     <meta charset="UTF-8">
-    <title>Quản lý quyền</title>
+    <title>Danh sách quyền</title>
     <th:block th:replace="layout :: link-css"></th:block>
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
@@ -22,16 +22,16 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>Role Name</th>
-                                    <th>Description</th>
-                                    <th>Action</th>
+                                    <th>Tên Quyền</th>
+                                    <th>Mô Tả</th>
+                                    <th>Thao Tác</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
                                     <th>Role Name</th>
                                     <th>Description</th>
-                                    <th>Action</th>
+                                    <th>Thao Tác</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -39,9 +39,9 @@
                                     <td th:text="${role.roleName}"></td>
                                     <td th:text="${role.description}"></td>
                                     <td>
-                                        <a th:href="@{/admin/edit-role/{roleId}(roleId=${role.roleId})}">
-                                            <i class="fas fa-pen-to-square mr-3"></i></a>
-                                        <a th:href="@{/admin/delete-role/{roleId}(roleId=${role.roleId})}"
+                                        <a th:href="@{'/role/edit-role/' + ${role.roleId}}">
+                                            <i class="fas fa-pen-to-square mr-2"></i></a>
+                                        <a th:href="@{'/role/delete-role/' + ${role.roleId}}"
                                            onclick="return confirm('Delete this role?')"><i class="fas fa-times" style="color:red"></i></a>
                                     </td>
                                 </tr>

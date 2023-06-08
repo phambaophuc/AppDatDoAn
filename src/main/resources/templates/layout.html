@@ -37,14 +37,16 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
            aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
-            <span>Quản lý quyền</span>
+            <span>Quản lý</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Components:</h6>
+                <h6 class="collapse-header">Quyền:</h6>
                 <a class="collapse-item" th:href="@{/role}">Danh sách quyền</a>
-                <a class="collapse-item" th:href="@{#}">Thêm quyền</a>
-                <a class="collapse-item" th:href="@{#}">Gán quyền</a>
+                <a class="collapse-item" th:href="@{/role/add-role}">Thêm quyền</a>
+                <div class="collapse-divider"></div>
+                <h6 class="collapse-header">Tài khoản:</h6>
+                <a class="collapse-item" th:href="@{/account}">Danh sách tài khoản</a>
             </div>
         </div>
     </li>

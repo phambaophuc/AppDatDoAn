@@ -33,4 +33,9 @@ public interface IAccountRepository extends JpaRepository<Account, UUID> {
     @Query(value = "SELECT r.role_name FROM Role r INNER JOIN account_role ar " +
             "ON r.role_id = ar.role_id WHERE ar.account_id = ?1", nativeQuery = true)
     String[] getRolesOfAccount(UUID accountId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM account_role WHERE account_id = ?1 AND role_id = ?2", nativeQuery = true)
+    void removeRoleFromAccount(UUID accountId, UUID roleId);
 }
