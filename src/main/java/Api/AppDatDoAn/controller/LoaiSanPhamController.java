@@ -1,0 +1,51 @@
+package Api.AppDatDoAn.controller;
+
+import Api.AppDatDoAn.entity.LoaiSanPham;
+import Api.AppDatDoAn.services.LoaiSanPhamService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+
+@Controller
+@RequestMapping("/loai-san-pham")
+public class LoaiSanPhamController {
+    @Autowired
+    private LoaiSanPhamService loaiSanPhamService;
+
+    @GetMapping
+    public String loaiSanPham(Model model) {
+        List<LoaiSanPham> loaiSanPhams = loaiSanPhamService.getAll();
+        model.addAttribute("loaiSanPhams", loaiSanPhams);
+        return "loaisanpham/loai-san-pham";
+    }
+
+    @GetMapping("/them-loai")
+    public String themLoai(Model model) {
+        model.addAttribute("newLoai", new LoaiSanPham());
+        return "loaisanpham/them-loai";
+    }
+    @PostMapping("/them-loai")
+    public String themLoai(@Valid @ModelAttribute("newLoai") LoaiSanPham loaiSanPham,
+                           Model model, BindingResult result) {
+        if (result.hasErrors())
+        {
+            List<FieldError> errors = result.getFieldErrors();
+            for (FieldError error : errors)
+            {
+                model.addAttribute(error.getField() + "_error", error.getDefaultMessage());
+            }
+            return "loaisanpham/them-loai";
+        }
+        loaiSanPhamService.saveLoaiSanPham(loaiSanPham);
+        return "redirect:/loai-san-pham";
+    }
+}

@@ -10,10 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -56,6 +54,20 @@ public class SanPhamController {
             return "sanpham/them-san-pham";
         }
         sanPhamService.saveSanPham(sanPham);
+        return "redirect:/san-pham";
+    }
+
+    @GetMapping("/sua-san-pham/{masanpham}")
+    public String suaSanPham(@PathVariable("masanpham")String maSanPham, Model model) {
+        SanPham sanPham = sanPhamService.getSanPhamById(maSanPham);
+        model.addAttribute("editSanPham", sanPham);
+        model.addAttribute("loaiSanPhams", loaiSanPhamService.getAll());
+        model.addAttribute("cuaHangs", cuaHangService.getAllCuaHang());
+        return "sanpham/sua-san-pham";
+    }
+    @PostMapping("/sua-san-pham")
+    public String suaSanPham(@Valid @ModelAttribute("editSanPham")SanPham sanPham) {
+        sanPhamService.updateSanPham(sanPham);
         return "redirect:/san-pham";
     }
 }

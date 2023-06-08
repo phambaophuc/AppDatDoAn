@@ -1,7 +1,7 @@
 package Api.AppDatDoAn.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class LoaiSanPham {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long maloai;
 
-    @NotNull(message = "Tên loại không được phép null")
+    @NotBlank(message = "Tên loại không được phép bỏ trống")
     @Column(name = "tenloai", length = 144)
     private String tenloai;
 

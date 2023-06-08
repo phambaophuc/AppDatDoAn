@@ -27,6 +27,8 @@
                   <th>Tên cửa hàng</th>
                   <th>Số điện thoại</th>
                   <th>Địa chỉ</th>
+                  <th>Lượt đánh giá</th>
+                  <th>Chất lượng</th>
                   <th>Giờ mở cửa</th>
                   <th>Giờ đóng cửa</th>
                   <th>Thao tác</th>
@@ -38,6 +40,8 @@
                   <th>Tên cửa hàng</th>
                   <th>Số điện thoại</th>
                   <th>Địa chỉ</th>
+                  <th>Lượt đánh giá</th>
+                  <th>Chất lượng</th>
                   <th>Giờ mở cửa</th>
                   <th>Giờ đóng cửa</th>
                   <th>Thao tác</th>
@@ -49,10 +53,12 @@
                   <td th:text="${cuaHang.tencuahang}"></td>
                   <td th:text="${cuaHang.sodienthoai}"></td>
                   <td th:text="${cuaHang.diachi}"></td>
+                  <td th:text="${cuaHang.luotdanhgia}"></td>
+                  <td th:text="${cuaHang.chatluong}"></td>
                   <td th:text="${cuaHang.giomocua}"></td>
                   <td th:text="${cuaHang.giodongcua}"></td>
                   <td>
-                    <a th:href="@{#}" class="mr-2">
+                    <a th:href="@{'/cua-hang/sua-cua-hang/' + ${cuaHang.macuahang}}" class="mr-2">
                       <i class="fa-regular fa-pen-to-square"></i></a>
                     <a th:href="@{#}"
                        onclick="return confirm('Xóa sản phẩm này?')"><i class="fas fa-times" style="color:red"></i></a>

@@ -41,6 +41,11 @@ public class AccountService {
 
     public void saveAccount(Account account) {
         accountRepository.save(account);
+        UUID userId = accountRepository.getAccountIdByUsername(account.getUsername());
+        UUID roleId = roleRepository.getRoleIdByRoleName("USER");
+        if (roleId != null && userId != null) {
+            accountRepository.addRoleToAccount(userId, roleId);
+        }
     }
 
 }

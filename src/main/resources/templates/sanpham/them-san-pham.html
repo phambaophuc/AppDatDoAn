@@ -19,7 +19,7 @@
           <form class="p-4" th:action="@{/san-pham/them-san-pham}" th:object="${newSanPham}" method="POST" enctype="multipart/form-data">
             <div class="row mt-2">
               <div class="col">
-                <label class="form-label" for="tensanpham">Tên Sản Phẩm: </label>
+                <label class="form-label" for="tensanpham">Tên Sản Phẩm:</label><span class="text-danger"> *</span>
                 <input class="form-control" type="text" id="tensanpham" th:field="*{tensanpham}">
                 <span class="text-danger" th:if="${#fields.hasErrors('tensanpham')}" th:errors="*{tensanpham}"></span>
               </div>

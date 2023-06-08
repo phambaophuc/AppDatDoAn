@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="">
 <head>
   <meta charset="UTF-8">
-  <title>Thêm Cửa Hàng</title>
+  <title>Sửa Cửa Hàng</title>
   <th:block th:replace="layout :: link-css"></th:block>
 </head>
 <body id="page-top">
@@ -14,19 +14,21 @@
       <div class="container-fluid">
         <div class="card shadow mb-4">
           <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Thêm cửa hàng</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Sửa cửa hàng</h6>
           </div>
-          <form class="p-4" th:action="@{/cua-hang/them-cua-hang}" th:object="${newCuaHang}" method="POST" enctype="multipart/form-data">
+          <form class="p-4" th:action="@{/cua-hang/sua-cua-hang}" th:object="${editCuaHang}" method="POST" enctype="multipart/form-data">
+            <p class="alert alert-warning text-center" th:if="${message}" th:text="${message}"></p>
+            <input type="hidden" th:field="*{macuahang}">
+            <input type="hidden" th:field="*{luotdanhgia}">
+            <input type="hidden" th:field="*{chatluong}">
             <div class="row mt-2">
               <div class="col">
                 <label class="form-label" for="tencuahang">Tên Cửa Hàng:</label><span class="text-danger"> *</span>
                 <input class="form-control" type="text" id="tencuahang" th:field="*{tencuahang}">
-                <span class="text-danger" th:if="${#fields.hasErrors('tencuahang')}" th:errors="*{tencuahang}"></span>
               </div>
               <div class="col">
                 <label class="form-label" for="sodienthoai">Số Điện Thoại:</label><span class="text-danger"> *</span>
                 <input class="form-control" id="sodienthoai" th:field="*{sodienthoai}">
-                <span class="text-danger" th:if="${#fields.hasErrors('sodienthoai')}" th:errors="*{sodienthoai}"></span>
               </div>
             </div>
 
@@ -40,26 +42,22 @@
               <div class="col">
                 <label class="form-label" for="diachi">Địa Chỉ:</label><span class="text-danger"> *</span>
                 <input class="form-control" type="text" id="diachi" th:field="*{diachi}">
-                <span class="text-danger" th:if="${#fields.hasErrors('diachi')}" th:errors="*{diachi}"></span>
               </div>
               <div class="col">
                 <label class="form-label" for="giomocua">Giờ Mở Cửa:</label>
                 <input class="form-control" type="time" id="giomocua" th:field="*{giomocua}">
-                <span class="text-danger" th:if="${#fields.hasErrors('giomocua')}" th:errors="*{giomocua}"></span>
               </div>
               <div class="col">
                 <label class="form-label" for="giodongcua">Giờ Đóng Cửa:</label>
                 <input class="form-control" type="time" id="giodongcua" th:field="*{giodongcua}">
-                <span class="text-danger" th:if="${#fields.hasErrors('giodongcua')}" th:errors="*{giodongcua}"></span>
               </div>
             </div>
 
             <div class="mt-2">
-              <label class="form-label" for="hinhanh">Hình Ảnh:</label>
+              <label class="form-label" for="hinhanh">Hình Ảnh: </label>
               <input class="form-control" type="text" id="hinhanh" th:field="*{hinhanh}">
-              <span class="text-danger" th:if="${#fields.hasErrors('hinhanh')}" th:errors="*{hinhanh}"></span>
             </div>
-            <button class="btn btn-success form-control mt-3" type="submit">Thêm cửa hàng</button>
+            <button class="btn btn-success form-control mt-3" type="submit">Sửa cửa hàng</button>
           </form>
         </div>
       </div>

@@ -24,8 +24,8 @@
                 <thead>
                 <tr>
                   <th>Mã sản phẩm</th>
-                  <th>Loại sản phẩm </th>
                   <th>Tên sản phẩm</th>
+                  <th>Loại sản phẩm </th>
                   <th>Giá</th>
                   <th>Lượt mua</th>
                   <th>Ghi chú</th>
@@ -36,8 +36,8 @@
                 <tfoot>
                 <tr>
                   <th>Mã sản phẩm</th>
-                  <th>Loại sản phẩm </th>
                   <th>Tên sản phẩm</th>
+                  <th>Loại sản phẩm </th>
                   <th>Giá</th>
                   <th>Lượt mua</th>
                   <th>Ghi chú</th>
@@ -48,14 +48,14 @@
                 <tbody>
                 <tr th:each="sanPham: ${sanPhams}">
                   <td th:text="${sanPham.masanpham}"></td>
-                  <td th:text="${sanPham.loaisanpham.tenloai}"></td>
                   <td th:text="${sanPham.tensanpham}"></td>
+                  <td th:text="${sanPham.loaisanpham.tenloai}"></td>
                   <td th:text="${sanPham.gia}"></td>
                   <td th:text="${sanPham.luotmua}"></td>
                   <td th:text="${sanPham.ghichu}"></td>
                   <td th:text="${sanPham.cuahang.tencuahang}"></td>
                   <td>
-                    <a th:href="@{#}" class="mr-2">
+                    <a th:href="@{'/san-pham/sua-san-pham/' + ${sanPham.masanpham}}" class="mr-2">
                       <i class="fa-regular fa-pen-to-square"></i></a>
                     <a th:href="@{#}"
                        onclick="return confirm('Xóa sản phẩm này?')"><i class="fas fa-times" style="color:red"></i></a>

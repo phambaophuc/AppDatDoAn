@@ -8,10 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -46,6 +44,18 @@ public class CuaHangController {
             return "cuahang/them-cua-hang";
         }
         cuaHangService.saveCuaHang(cuaHang);
+        return "redirect:/cua-hang";
+    }
+
+    @GetMapping("/sua-cua-hang/{macuahang}")
+    public String suaCuaHang(@PathVariable("macuahang")String macuahang, Model model) {
+        CuaHang cuaHang = cuaHangService.getCuaHangById(macuahang);
+        model.addAttribute("editCuaHang", cuaHang);
+        return "cuahang/sua-cua-hang";
+    }
+    @PostMapping("/sua-cua-hang")
+    public String suaCuaHang(@Valid @ModelAttribute("editCuaHang") CuaHang cuaHang) {
+        cuaHangService.updateCuaHang(cuaHang);
         return "redirect:/cua-hang";
     }
 }
