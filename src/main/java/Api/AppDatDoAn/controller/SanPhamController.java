@@ -70,4 +70,10 @@ public class SanPhamController {
         sanPhamService.updateSanPham(sanPham);
         return "redirect:/san-pham";
     }
+
+    @GetMapping("/xoa-san-pham/{masanpham}")
+    public String xoaSanPham(@PathVariable("masanpham")String masanPham) {
+        sanPhamService.removeSanPham(masanPham);
+        return "redirect:/san-pham";
+    }
 }

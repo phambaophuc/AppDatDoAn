@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface IChiTietDonDatHangReponsitory extends JpaRepository<ChiTietDonDatHang, ChiTietDonDatHangKey> {
+public interface IChiTietDonDatHangRepository extends JpaRepository<ChiTietDonDatHang, ChiTietDonDatHangKey> {
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO ct_ddh (masanpham, madondathang, soluong) " +

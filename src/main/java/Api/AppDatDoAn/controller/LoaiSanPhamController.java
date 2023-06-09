@@ -8,10 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -46,6 +43,18 @@ public class LoaiSanPhamController {
             return "loaisanpham/them-loai";
         }
         loaiSanPhamService.saveLoaiSanPham(loaiSanPham);
+        return "redirect:/loai-san-pham";
+    }
+
+    @GetMapping("/sua-loai/{maloai}")
+    public String suaLoai(@PathVariable("maloai")Long maLoai, Model model) {
+        model.addAttribute("editLoai", loaiSanPhamService.getById(maLoai));
+        return "loaisanpham/sua-loai";
+    }
+
+    @GetMapping("/xoa-loai/{maloai}")
+    public String xoaLoai(@PathVariable("maloai")Long maLoai) {
+        loaiSanPhamService.removeLoaiSanPham(maLoai);
         return "redirect:/loai-san-pham";
     }
 }

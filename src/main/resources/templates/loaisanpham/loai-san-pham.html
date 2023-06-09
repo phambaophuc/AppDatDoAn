@@ -40,10 +40,10 @@
                                     <td th:text="${loaiSanPham.maloai}"></td>
                                     <td th:text="${loaiSanPham.tenloai}"></td>
                                     <td>
-                                        <a th:href="@{#}" class="mr-2">
+                                        <a th:href="@{'/loai-san-pham/sua-loai/' + ${loaiSanPham.maloai}}" class="mr-2">
                                             <i class="fa-regular fa-pen-to-square"></i></a>
-                                        <a th:href="@{#}"
-                                           onclick="return confirm('Xóa sản phẩm này?')"><i class="fas fa-times" style="color:red"></i></a>
+                                        <a th:href="@{'/loai-san-pham/xoa-loai/' + ${loaiSanPham.maloai}}"
+                                           onclick="return confirm('Xóa loại sản phẩm này?')"><i class="fas fa-times" style="color:red"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>

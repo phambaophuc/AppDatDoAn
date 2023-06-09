@@ -58,4 +58,10 @@ public class CuaHangController {
         cuaHangService.updateCuaHang(cuaHang);
         return "redirect:/cua-hang";
     }
+
+    @GetMapping("/xoa-cua-hang/{macuahang}")
+    public String xoaCuaHang(@PathVariable("macuahang")String maCuaHang) {
+        cuaHangService.removeCuaHang(maCuaHang);
+        return "redirect:/cua-hang";
+    }
 }

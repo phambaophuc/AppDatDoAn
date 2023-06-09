@@ -60,8 +60,8 @@
                   <td>
                     <a th:href="@{'/cua-hang/sua-cua-hang/' + ${cuaHang.macuahang}}" class="mr-2">
                       <i class="fa-regular fa-pen-to-square"></i></a>
-                    <a th:href="@{#}"
-                       onclick="return confirm('Xóa sản phẩm này?')"><i class="fas fa-times" style="color:red"></i></a>
+                    <a th:href="@{'/cua-hang/xoa-cua-hang/' + ${cuaHang.macuahang}}"
+                       onclick="return confirm('Xóa cửa hàng này?')"><i class="fas fa-times" style="color:red"></i></a>
                   </td>
                 </tr>
                 </tbody>

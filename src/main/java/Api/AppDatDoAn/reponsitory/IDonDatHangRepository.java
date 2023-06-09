@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface IDonDatHangReponsitory extends JpaRepository<DonDatHang, String> {
+public interface IDonDatHangRepository extends JpaRepository<DonDatHang, String> {
     @Query("SELECT ddh FROM DonDatHang ddh WHERE ddh.madondathang = ?1")
     DonDatHang findByDDHById(String id);
 

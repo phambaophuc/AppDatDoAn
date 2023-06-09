@@ -1,7 +1,7 @@
 package Api.AppDatDoAn.services;
 
 import Api.AppDatDoAn.entity.LoaiSanPham;
-import Api.AppDatDoAn.reponsitory.ILoaiSanPhamReponsitory;
+import Api.AppDatDoAn.reponsitory.ILoaiSanPhamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class LoaiSanPhamService {
     @Autowired
-    private ILoaiSanPhamReponsitory loaiSanPhamReponsitory;
+    private ILoaiSanPhamRepository loaiSanPhamReponsitory;
 
     public List<LoaiSanPham> getAll() {
         return loaiSanPhamReponsitory.findAll();

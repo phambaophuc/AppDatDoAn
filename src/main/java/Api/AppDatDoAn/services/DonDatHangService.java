@@ -1,13 +1,11 @@
 package Api.AppDatDoAn.services;
 
 import Api.AppDatDoAn.entity.DonDatHang;
-import Api.AppDatDoAn.reponsitory.IDonDatHangReponsitory;
+import Api.AppDatDoAn.reponsitory.IDonDatHangRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,7 +13,7 @@ import java.util.UUID;
 public class DonDatHangService {
 
     @Autowired
-    private IDonDatHangReponsitory donDatHangReponsitory;
+    private IDonDatHangRepository donDatHangReponsitory;
 
     public DonDatHang getDDHById(String id) {
         return donDatHangReponsitory.findByDDHById(id);

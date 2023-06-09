@@ -8,9 +8,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Repository
-public interface IHoaDonReponsitory extends JpaRepository<HoaDon, String> {
+public interface IHoaDonRepository extends JpaRepository<HoaDon, String> {
     @Query("SELECT hd FROM HoaDon hd WHERE hd.mahoadon = ?1")
     HoaDon findByMaHoaDon(String id);
 
@@ -27,4 +29,10 @@ public interface IHoaDonReponsitory extends JpaRepository<HoaDon, String> {
             "SET hoadon.tongtien = t.tongtien " +
             "WHERE hoadon.mahoadon = :mahoadon", nativeQuery = true)
     void tinhTongTien(@Param("mahoadon") String mahoadon);
+
+    @Query("SELECT MONTH(h.ngaylap) AS month, SUM(h.tongtien) AS total "
+            + "FROM HoaDon h "
+            + "WHERE YEAR(h.ngaylap) = :year "
+            + "GROUP BY MONTH(h.ngaylap)")
+    List<Object[]> getMonthlyRevenue(@Param("year") int year);
 }

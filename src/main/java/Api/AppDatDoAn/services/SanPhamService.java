@@ -1,7 +1,7 @@
 package Api.AppDatDoAn.services;
 
 import Api.AppDatDoAn.entity.SanPham;
-import Api.AppDatDoAn.reponsitory.ISanPhamReponsitory;
+import Api.AppDatDoAn.reponsitory.ISanPhamRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class SanPhamService {
     @Autowired
-    private ISanPhamReponsitory sanPhamReponsitory;
+    private ISanPhamRepository sanPhamReponsitory;
 
     public List<SanPham> getAllSanPham() {
         return sanPhamReponsitory.findAll();

@@ -57,8 +57,9 @@
                   <td>
                     <a th:href="@{'/san-pham/sua-san-pham/' + ${sanPham.masanpham}}" class="mr-2">
                       <i class="fa-regular fa-pen-to-square"></i></a>
-                    <a th:href="@{#}"
-                       onclick="return confirm('Xóa sản phẩm này?')"><i class="fas fa-times" style="color:red"></i></a>
+                    <a th:href="@{'/san-pham/xoa-san-pham/' + ${sanPham.masanpham}}" onclick="return confirm('Xóa sản phẩm này?')">
+                      <i class="fas fa-times" style="color:red"></i>
+                    </a>
                   </td>
                 </tr>
                 </tbody>

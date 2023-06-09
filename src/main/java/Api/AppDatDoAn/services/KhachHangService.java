@@ -1,7 +1,7 @@
 package Api.AppDatDoAn.services;
 
 import Api.AppDatDoAn.entity.KhachHang;
-import Api.AppDatDoAn.reponsitory.IKhachHangReponsitory;
+import Api.AppDatDoAn.reponsitory.IKhachHangRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class KhachHangService {
     @Autowired
-    private IKhachHangReponsitory khachHangReponsitory;
+    private IKhachHangRepository khachHangReponsitory;
 
     public KhachHang getKhachHangById(String id) {
         return khachHangReponsitory.findByMaKhachHang(id);

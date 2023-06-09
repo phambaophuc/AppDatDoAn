@@ -1,7 +1,7 @@
 package Api.AppDatDoAn.services;
 
 import Api.AppDatDoAn.entity.CuaHang;
-import Api.AppDatDoAn.reponsitory.ICuaHangReponsitory;
+import Api.AppDatDoAn.reponsitory.ICuaHangRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class CuaHangService {
     @Autowired
-    private ICuaHangReponsitory cuaHangReponsitory;
+    private ICuaHangRepository cuaHangReponsitory;
 
     public List<CuaHang> getAllCuaHang() {
         return cuaHangReponsitory.findAll();
