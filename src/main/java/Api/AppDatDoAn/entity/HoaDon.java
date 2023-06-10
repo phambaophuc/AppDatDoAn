@@ -1,12 +1,13 @@
 package Api.AppDatDoAn.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "hoadon")
 public class HoaDon {
@@ -22,7 +23,6 @@ public class HoaDon {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "dondathang_id", referencedColumnName = "madondathang")
-    @NotNull(message = "Vui lòng nhập mã đơn đặt hàng")
     private DonDatHang donDatHang;
 
     @PrePersist

@@ -1,5 +1,7 @@
 package Api.AppDatDoAn.entity;
 
+import Api.AppDatDoAn.validator.annotation.ValidMaCuaHang;
+import Api.AppDatDoAn.validator.annotation.ValidMaLoaiSP;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -37,10 +39,12 @@ public class SanPham {
 
     @ManyToOne
     @JoinColumn(name = "loaisanpham_id", nullable = false)
+    @ValidMaLoaiSP
     private LoaiSanPham loaisanpham;
 
     @ManyToOne
     @JoinColumn(name = "cuahang_id", nullable = false)
+    @ValidMaCuaHang
     private CuaHang cuahang;
 
     @OneToMany(mappedBy = "sanpham", cascade = CascadeType.ALL)

@@ -6,6 +6,7 @@ import Api.AppDatDoAn.services.LoaiSanPhamService;
 import Api.AppDatDoAn.services.SanPhamService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
+@PreAuthorize("isAuthenticated()")
 @RequestMapping("/san-pham")
 public class SanPhamController {
     @Autowired
@@ -44,7 +46,7 @@ public class SanPhamController {
                               BindingResult result, Model model) {
         if (result.hasErrors())
         {
-            model.addAttribute("loaisanphams", loaiSanPhamService.getAll());
+            model.addAttribute("loaiSanPhams", loaiSanPhamService.getAll());
             model.addAttribute("cuaHangs", cuaHangService.getAllCuaHang());
             List<FieldError> errors = result.getFieldErrors();
             for (FieldError error : errors)

@@ -33,7 +33,7 @@
         Interface
     </div>
 
-    <li class="nav-item">
+    <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
            aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>

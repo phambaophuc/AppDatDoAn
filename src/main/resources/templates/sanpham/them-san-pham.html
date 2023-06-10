@@ -30,6 +30,7 @@
                   <option th:each="loaiSanPham: ${loaiSanPhams}" th:value="${loaiSanPham.maloai}"
                           th:text="${loaiSanPham.tenloai}"></option>
                 </select>
+                <span class="text-danger" th:if="${#fields.hasErrors('loaisanpham')}" th:errors="*{loaisanpham}"></span>
               </div>
               <div class="col">
                 <label class="form-label" for="cuahang">Cửa Hàng:</label>
@@ -38,6 +39,7 @@
                   <option th:each="cuaHang: ${cuaHangs}" th:value="${cuaHang.macuahang}"
                           th:text="${cuaHang.tencuahang}"></option>
                 </select>
+                <span class="text-danger" th:if="${#fields.hasErrors('cuahang')}" th:errors="*{cuahang}"></span>
               </div>
             </div>
 

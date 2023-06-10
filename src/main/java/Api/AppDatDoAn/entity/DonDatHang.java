@@ -27,7 +27,6 @@ public class DonDatHang {
 
     @ManyToOne
     @JoinColumn(name = "khachhang_id")
-    @NotNull(message = "Vui lòng nhập mã khách hàng")
     private KhachHang khachhang;
 
     @OneToMany(mappedBy = "dondathang", cascade = CascadeType.ALL)

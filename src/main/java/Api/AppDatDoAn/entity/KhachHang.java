@@ -1,6 +1,7 @@
 package Api.AppDatDoAn.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -16,7 +17,7 @@ public class KhachHang {
     @Column(name = "makhachhang", length = 10, unique = true)
     private String makhachhang;
 
-    @NotNull(message = "Tên khách hàng không được phép null")
+    @NotBlank(message = "Tên không được phép bỏ trống")
     @Column(name = "tenkhachhang", length = 64)
     @Size(max = 64, message = "Chuỗi không được quá 64 ký tự")
     private String tenkhachhang;

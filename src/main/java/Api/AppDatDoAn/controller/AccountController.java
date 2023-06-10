@@ -4,6 +4,7 @@ import Api.AppDatDoAn.entity.Account;
 import Api.AppDatDoAn.services.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ public class AccountController {
     private AccountService accountService;
 
     @GetMapping("/account")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String getAllAccounts(Model model) {
         List<Account> accounts = accountService.getAllAccounts();
         model.addAttribute("accounts", accounts);
