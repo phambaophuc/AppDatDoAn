@@ -25,4 +25,17 @@ public class ThongKeService {
 
         return revenueByMonth;
     }
+
+    public Map<Integer, Double> thongKeTongTienTheoNgay(int month, int year) {
+        List<Object[]> results = hoaDonRepository.getDailyRevenue(month, year);
+
+        Map<Integer, Double> revenueByDay = new HashMap<>();
+        for (Object[] result : results) {
+            int day = (int) result[0];
+            double total = (double) result[1];
+            revenueByDay.put(day, total);
+        }
+
+        return revenueByDay;
+    }
 }

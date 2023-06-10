@@ -16,17 +16,33 @@ public class ThongKeController {
     @Autowired
     private ThongKeService thongKeService;
 
-    @GetMapping("/thongke-nam")
-    public String thongKe(Model model) {
+    @GetMapping("/thongke-thang")
+    public String thongKeThang(Model model) {
         int year = LocalDate.now().getYear();
         Map<Integer, Double> revenueByMonth = thongKeService.thongKeTongTienTheoThang(year);
         model.addAttribute("revenueByMonth", revenueByMonth);
-        return "hoadon/thongke-nam";
+        return "hoadon/thongke-thang";
     }
 
-    @GetMapping("/thongkenam-data")
+    @GetMapping("/thongkethang-data")
     @ResponseBody
-    public Map<Integer, Double> thongKeData(@RequestParam("year") int year) {
+    public Map<Integer, Double> thongKeThangData(@RequestParam("year") int year) {
         return thongKeService.thongKeTongTienTheoThang(year);
+    }
+
+    @GetMapping("/thongke-ngay")
+    public String thongKeNgay(Model model) {
+        int month = LocalDate.now().getMonthValue();
+        int year = LocalDate.now().getYear();
+        Map<Integer, Double> revenueByDay = thongKeService.thongKeTongTienTheoNgay(month, year);
+        model.addAttribute("revenueByDay", revenueByDay);
+        return "hoadon/thongke-ngay";
+    }
+
+    @GetMapping("/thongkengay-data")
+    @ResponseBody
+    public Map<Integer, Double> thongKeNgayData(@RequestParam("month") int month,
+                                                @RequestParam("year") int year) {
+        return thongKeService.thongKeTongTienTheoNgay(month, year);
     }
 }

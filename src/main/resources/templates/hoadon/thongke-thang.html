@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Thống kê</title>
+    <title>Thống kê theo tháng</title>
     <th:block th:replace="layout :: link-css"></th:block>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -50,7 +50,7 @@
                     });
 
                     function loadRevenueData(year) {
-                        fetch('/thongkenam-data?year=' + year)
+                        fetch('/thongkethang-data?year=' + year)
                             .then(response => response.json())
                             .then(data => {
                                 revenueData = data;
