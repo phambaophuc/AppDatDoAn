@@ -67,10 +67,19 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="/thong-ke">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThongKe"
+           aria-expanded="true" aria-controls="collapseThongKe">
             <i class="fas fa-fw fa-chart-simple"></i>
             <span>Thống kê</span>
         </a>
+        <div id="collapseThongKe" class="collapse" aria-labelledby="headingThongKe"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Thống kê doanh thu:</h6>
+                <a class="collapse-item" th:href="@{/thongke-thang}">Theo tháng</a>
+                <a class="collapse-item" th:href="@{/thongke-nam}">Theo năm</a>
+            </div>
+        </div>
     </li>
 
     <hr class="sidebar-divider">

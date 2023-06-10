@@ -50,7 +50,7 @@
                     });
 
                     function loadRevenueData(year) {
-                        fetch('/thongke-data?year=' + year)
+                        fetch('/thongkenam-data?year=' + year)
                             .then(response => response.json())
                             .then(data => {
                                 revenueData = data;

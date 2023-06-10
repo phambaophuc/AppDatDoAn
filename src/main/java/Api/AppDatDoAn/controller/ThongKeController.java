@@ -16,15 +16,15 @@ public class ThongKeController {
     @Autowired
     private ThongKeService thongKeService;
 
-    @GetMapping("/thong-ke")
+    @GetMapping("/thongke-nam")
     public String thongKe(Model model) {
         int year = LocalDate.now().getYear();
         Map<Integer, Double> revenueByMonth = thongKeService.thongKeTongTienTheoThang(year);
         model.addAttribute("revenueByMonth", revenueByMonth);
-        return "hoadon/thong-ke";
+        return "hoadon/thongke-nam";
     }
 
-    @GetMapping("/thongke-data")
+    @GetMapping("/thongkenam-data")
     @ResponseBody
     public Map<Integer, Double> thongKeData(@RequestParam("year") int year) {
         return thongKeService.thongKeTongTienTheoThang(year);
