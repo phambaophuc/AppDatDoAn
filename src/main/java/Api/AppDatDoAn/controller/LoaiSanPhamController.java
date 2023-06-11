@@ -53,6 +53,11 @@ public class LoaiSanPhamController {
         model.addAttribute("editLoai", loaiSanPhamService.getById(maLoai));
         return "loaisanpham/sua-loai";
     }
+    @PostMapping("/sua-loai")
+    public String suaLoai(@Valid @ModelAttribute("maloai")LoaiSanPham loaiSanPham) {
+        loaiSanPhamService.updateLoaiSanPham(loaiSanPham);
+        return "redirect:/loai-san-pham";
+    }
 
     @GetMapping("/xoa-loai/{maloai}")
     public String xoaLoai(@PathVariable("maloai")Long maLoai) {

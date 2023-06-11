@@ -26,6 +26,10 @@ public class LoaiSanPhamService {
         return loaiSanPhamReponsitory.save(loaisanpham);
     }
 
+    public LoaiSanPham updateLoaiSanPham(LoaiSanPham loaiSanPham) {
+        return loaiSanPhamReponsitory.save(loaiSanPham);
+    }
+
     public void removeLoaiSanPham(Long id) {
         loaiSanPhamReponsitory.deleteById(id);
     }

@@ -16,12 +16,13 @@
           <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Sửa Loại</h6>
           </div>
-          <form class="p-4" th:action="@{/loai-san-pham/them-loai}" th:object="${editLoai}" method="POST">
+          <form class="p-4" th:action="@{/loai-san-pham/sua-loai}" th:object="${editLoai}" method="POST">
+            <input type="hidden" th:field="*{maloai}">
             <div class="col-md-4">
               <label class="form-label" for="tenloai">Tên loại:</label><span class="text-danger"> *</span>
               <input class="form-control" type="text" id="tenloai" th:field="*{tenloai}">
               <span class="text-danger" th:if="${#fields.hasErrors('tenloai')}" th:errors="*{tenloai}"></span>
-              <button class="btn btn-success form-control mt-3" type="submit">Thêm loại</button>
+              <button class="btn btn-success form-control mt-3" type="submit">Sửa loại</button>
             </div>
           </form>
         </div>

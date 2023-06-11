@@ -98,7 +98,7 @@
             <i class="fas fa-fw fa-table"></i>
             <span>Loại sản phẩm</span></a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
         <a th:href="@{/cua-hang}" class="nav-link">
             <i class="fas fa-fw fa-table"></i>
             <span>Cửa hàng</span></a>

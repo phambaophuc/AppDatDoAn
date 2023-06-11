@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@PreAuthorize("isAuthenticated()")
+@PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("/cua-hang")
 public class CuaHangController {
     @Autowired
