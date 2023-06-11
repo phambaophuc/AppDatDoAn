@@ -2,6 +2,7 @@ package Api.AppDatDoAn.controller;
 
 import Api.AppDatDoAn.entity.SanPham;
 import Api.AppDatDoAn.services.CuaHangService;
+import Api.AppDatDoAn.services.IImageService;
 import Api.AppDatDoAn.services.LoaiSanPhamService;
 import Api.AppDatDoAn.services.SanPhamService;
 import jakarta.validation.Valid;
@@ -12,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ public class SanPhamController {
     private LoaiSanPhamService loaiSanPhamService;
     @Autowired
     private CuaHangService cuaHangService;
+    @Autowired
+    private IImageService iImageService;
 
     @GetMapping
     public String sanPham(Model model) {
@@ -43,6 +46,7 @@ public class SanPhamController {
     }
     @PostMapping("/them-san-pham")
     public String themSanPham(@Valid @ModelAttribute("newSanPham") SanPham sanPham,
+                              @RequestParam(name = "file")MultipartFile file,
                               BindingResult result, Model model) {
         if (result.hasErrors())
         {
@@ -55,6 +59,18 @@ public class SanPhamController {
             }
             return "sanpham/them-san-pham";
         }
+
+        try {
+            String folderName = "Product_image";
+            String fileName = iImageService.save(file, folderName);
+            String imageUrl = iImageService.getImageUrl(folderName, fileName);
+            sanPham.setHinhanh(imageUrl);
+
+            System.out.println("Upload file " + fileName + " successfully.");
+        } catch (Exception ex) {
+            System.out.println("Error : " + ex.getMessage());
+        }
+
         sanPhamService.saveSanPham(sanPham);
         return "redirect:/san-pham";
     }
@@ -68,7 +84,26 @@ public class SanPhamController {
         return "sanpham/sua-san-pham";
     }
     @PostMapping("/sua-san-pham")
-    public String suaSanPham(@Valid @ModelAttribute("editSanPham")SanPham sanPham) {
+    public String suaSanPham(@Valid @ModelAttribute("editSanPham")SanPham sanPham,
+                             @RequestParam(name = "file")MultipartFile file) {
+        SanPham currentSanPham = sanPhamService.getSanPhamById(sanPham.getMasanpham());
+        boolean isImageUpdate = file != null && !file.isEmpty();
+
+        if (isImageUpdate) {
+            try {
+                String folderName = "Product_image";
+                String fileName = iImageService.save(file, folderName);
+                String imageUrl = iImageService.getImageUrl(folderName, fileName);
+                sanPham.setHinhanh(imageUrl);
+
+                System.out.println("Upload file " + fileName + " successfully.");
+            } catch (Exception ex) {
+                System.out.println("Error : " + ex.getMessage());
+            }
+        } else {
+            sanPham.setHinhanh(currentSanPham.getHinhanh());
+        }
+
         sanPhamService.updateSanPham(sanPham);
         return "redirect:/san-pham";
     }

@@ -20,7 +20,7 @@ public class CuaHang {
     @Column(name = "tencuahang", length = 64)
     private String tencuahang;
 
-    @Column(name = "hinhanh")
+    @Column(name = "hinhanh", length = 1000)
     private String hinhanh;
 
     @NotBlank(message = "Địa chỉ không được phép bỏ trống")

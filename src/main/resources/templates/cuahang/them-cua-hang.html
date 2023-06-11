@@ -55,9 +55,8 @@
             </div>
 
             <div class="mt-2">
-              <label class="form-label" for="hinhanh">Hình Ảnh:</label>
-              <input class="form-control" type="text" id="hinhanh" th:field="*{hinhanh}">
-              <span class="text-danger" th:if="${#fields.hasErrors('hinhanh')}" th:errors="*{hinhanh}"></span>
+              <label class="form-label" for="file">Hình Ảnh:</label>
+              <input class="form-control" type="file" id="file" name="file" required>
             </div>
             <button class="btn btn-success form-control mt-3" type="submit">Thêm cửa hàng</button>
           </form>

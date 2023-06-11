@@ -37,6 +37,9 @@ public class SanPham {
     @Column(name = "ghichu", length = 255)
     private String ghichu;
 
+    @Column(name = "hinhanh", length = 1000)
+    private String hinhanh;
+
     @ManyToOne
     @JoinColumn(name = "loaisanpham_id", nullable = false)
     @ValidMaLoaiSP

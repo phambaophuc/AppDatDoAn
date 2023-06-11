@@ -2,6 +2,7 @@ package Api.AppDatDoAn.controller;
 
 import Api.AppDatDoAn.entity.CuaHang;
 import Api.AppDatDoAn.services.CuaHangService;
+import Api.AppDatDoAn.services.IImageService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -20,6 +22,9 @@ import java.util.List;
 public class CuaHangController {
     @Autowired
     private CuaHangService cuaHangService;
+
+    @Autowired
+    IImageService iImageService;
 
     @GetMapping
     public String cuaHang(Model model) {
@@ -35,6 +40,7 @@ public class CuaHangController {
     }
     @PostMapping("/them-cua-hang")
     public String themCuaHang(@Valid @ModelAttribute("newCuaHang") CuaHang cuaHang,
+                              @RequestParam(name = "file") MultipartFile file,
                               BindingResult result, Model model) {
         if (result.hasErrors())
         {
@@ -45,6 +51,18 @@ public class CuaHangController {
             }
             return "cuahang/them-cua-hang";
         }
+
+        try {
+            String folderName = "Food_store";
+            String fileName = iImageService.save(file, folderName);
+            String imageUrl = iImageService.getImageUrl(folderName, fileName);
+            cuaHang.setHinhanh(imageUrl);
+
+            System.out.println("Upload file " + fileName + " successfully.");
+        } catch (Exception ex) {
+            System.out.println("Error : " + ex.getMessage());
+        }
+
         cuaHangService.saveCuaHang(cuaHang);
         return "redirect:/cua-hang";
     }
@@ -56,7 +74,26 @@ public class CuaHangController {
         return "cuahang/sua-cua-hang";
     }
     @PostMapping("/sua-cua-hang")
-    public String suaCuaHang(@Valid @ModelAttribute("editCuaHang") CuaHang cuaHang) {
+    public String suaCuaHang(@Valid @ModelAttribute("editCuaHang") CuaHang cuaHang,
+                             @RequestParam(name = "file") MultipartFile file) {
+        CuaHang currentCuaHang = cuaHangService.getCuaHangById(cuaHang.getMacuahang());
+        boolean isImageUpdate = file != null && !file.isEmpty();
+
+        if (isImageUpdate) {
+            try {
+                String folderName = "Food_store";
+                String fileName = iImageService.save(file, folderName);
+                String imageUrl = iImageService.getImageUrl(folderName, fileName);
+                cuaHang.setHinhanh(imageUrl);
+
+                System.out.println("Upload file " + fileName + " successfully.");
+            } catch (Exception ex) {
+                System.out.println("Error : " + ex.getMessage());
+            }
+        } else {
+            cuaHang.setHinhanh(currentCuaHang.getHinhanh());
+        }
+
         cuaHangService.updateCuaHang(cuaHang);
         return "redirect:/cua-hang";
     }
