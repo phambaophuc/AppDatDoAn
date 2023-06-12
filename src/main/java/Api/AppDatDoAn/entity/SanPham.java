@@ -40,6 +40,9 @@ public class SanPham {
     @Column(name = "hinhanh", length = 1000)
     private String hinhanh;
 
+    @Column(name = "phanloai", length = 100)
+    private String phanloai;
+
     @ManyToOne
     @JoinColumn(name = "loaisanpham_id", nullable = false)
     @ValidMaLoaiSP
