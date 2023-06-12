@@ -13,7 +13,7 @@ public interface IDonDatHangRepository extends JpaRepository<DonDatHang, String>
     @Query("SELECT ddh FROM DonDatHang ddh WHERE ddh.madondathang = ?1")
     DonDatHang findByDDHById(String id);
 
-    @Query(value = "SELECT ddh.* FROM dondathang ddh " +
+    @Query(value = "SELECT DISTINCT ddh.* FROM dondathang ddh " +
             "JOIN ct_ddh ctdh ON ctdh.madondathang = ddh.madondathang " +
             "JOIN sanpham sp ON sp.masanpham = ctdh.masanpham " +
             "JOIN cuahang ch ON ch.macuahang = sp.cuahang_id " +
