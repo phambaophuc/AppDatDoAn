@@ -1,6 +1,5 @@
 package Api.AppDatDoAn.entity;
 
-import Api.AppDatDoAn.validator.annotation.ValidMaCuaHang;
 import Api.AppDatDoAn.validator.annotation.ValidMaLoaiSP;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

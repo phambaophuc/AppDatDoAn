@@ -13,8 +13,8 @@ public class ThongKeService {
     @Autowired
     private IHoaDonRepository hoaDonRepository;
 
-    public Map<Integer, Double> thongKeTongTienTheoThang(int year) {
-        List<Object[]> results = hoaDonRepository.getMonthlyRevenue(year);
+    public Map<Integer, Double> thongKeTongTienTheoThang(int year, String mach) {
+        List<Object[]> results = hoaDonRepository.getMonthlyRevenue(year, mach);
 
         Map<Integer, Double> revenueByMonth = new HashMap<>();
         for (Object[] result : results) {
@@ -26,8 +26,8 @@ public class ThongKeService {
         return revenueByMonth;
     }
 
-    public Map<Integer, Double> thongKeTongTienTheoNgay(int month, int year) {
-        List<Object[]> results = hoaDonRepository.getDailyRevenue(month, year);
+    public Map<Integer, Double> thongKeTongTienTheoNgay(int month, int year, String mach) {
+        List<Object[]> results = hoaDonRepository.getDailyRevenue(month, year, mach);
 
         Map<Integer, Double> revenueByDay = new HashMap<>();
         for (Object[] result : results) {

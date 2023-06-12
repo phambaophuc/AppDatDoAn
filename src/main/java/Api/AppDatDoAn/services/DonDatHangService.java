@@ -19,8 +19,8 @@ public class DonDatHangService {
         return donDatHangReponsitory.findByDDHById(id);
     }
 
-    public List<Object[]> LayThongTinDatHangTheoKhachHang(UUID id) {
-        return donDatHangReponsitory.LayThongTinDatHangTheoKhachHang(id);
+    public List<DonDatHang> getAllDDHByMaCH(String macuahang) {
+        return donDatHangReponsitory.findAllDDHByMaCH(macuahang);
     }
 
     public List<DonDatHang> getAllDDH() {
