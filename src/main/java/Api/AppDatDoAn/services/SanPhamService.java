@@ -6,6 +6,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,10 @@ public class SanPhamService {
 
     public List<SanPham> getAllSanPham() {
         return sanPhamReponsitory.findAll();
+    }
+
+    public List<SanPham> getAllSanPhamByMaCuaHang(String macuahang) {
+        return sanPhamReponsitory.findAllSanPhamByMaCH(macuahang);
     }
 
     public SanPham getSanPhamById(String id) {
@@ -37,8 +42,8 @@ public class SanPhamService {
 
     public SanPham saveSanPham(SanPham sanPham) {
         String masanpham = RandomStringUtils.randomAlphanumeric(10);
-        sanPham.setLuotmua(0L);
         sanPham.setMasanpham(masanpham);
+        sanPham.setLuotmua(0L);
         return sanPhamReponsitory.save(sanPham);
     }
 

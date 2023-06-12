@@ -19,6 +19,9 @@ public interface ISanPhamRepository extends JpaRepository<SanPham, String> {
     @Query("SELECT sp FROM SanPham sp WHERE sp.loaisanpham.maloai = :query")
     List<SanPham> searchByTheLoai(Long query);
 
+    @Query("SELECT sp FROM SanPham sp WHERE sp.cuahang.macuahang = :query")
+    List<SanPham> findAllSanPhamByMaCH(String query);
+
     @Query("SELECT sp FROM SanPham sp WHERE LOWER(sp.tensanpham) LIKE %:name% AND sp.loaisanpham.maloai = :theloaiId")
     List<SanPham> searchByNameAndTheLoai(@Param("name") String name, @Param("theloaiId") Long theloaiId);
 

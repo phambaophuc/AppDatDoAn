@@ -47,7 +47,6 @@ public class SanPham {
 
     @ManyToOne
     @JoinColumn(name = "cuahang_id", nullable = false)
-    @ValidMaCuaHang
     private CuaHang cuahang;
 
     @OneToMany(mappedBy = "sanpham", cascade = CascadeType.ALL)

@@ -17,6 +17,7 @@
                         <h6 class="m-0 font-weight-bold text-primary">Sửa sản phẩm</h6>
                     </div>
                     <form class="p-4" th:action="@{/san-pham/sua-san-pham}" th:object="${editSanPham}" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" th:value="${macuahang}" name="cuahang">
                         <input type="hidden" th:field="*{masanpham}">
                         <input type="hidden" th:field="*{luotmua}">
                         <div class="row mt-2">
@@ -31,14 +32,6 @@
                                     <option value="">-- Chọn loại sản phẩm --</option>
                                     <option th:each="loaiSanPham: ${loaiSanPhams}" th:value="${loaiSanPham.maloai}"
                                             th:text="${loaiSanPham.tenloai}" th:selected="*{loaisanpham.tenloai}"></option>
-                                </select>
-                            </div>
-                            <div class="col">
-                                <label class="form-label" for="cuahang">Cửa Hàng:</label>
-                                <select class="form-control" id="cuahang" name="cuahang.macuahang">
-                                    <option value="">-- Chọn cửa hàng --</option>
-                                    <option th:each="cuaHang: ${cuaHangs}" th:value="${cuaHang.macuahang}"
-                                            th:text="${cuaHang.tencuahang}" th:selected="*{cuahang.tencuahang}"></option>
                                 </select>
                             </div>
                         </div>

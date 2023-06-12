@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Thêm Sản Phẩm</title>
@@ -17,6 +17,7 @@
                         <h6 class="m-0 font-weight-bold text-primary">Thêm sản phẩm</h6>
                     </div>
                     <form class="p-4" th:action="@{/san-pham/them-san-pham}" th:object="${newSanPham}" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" th:value="${macuahang}" name="cuahang">
                         <div class="row mt-2">
                             <div class="col">
                                 <label class="form-label" for="tensanpham">Tên Sản Phẩm:</label><span class="text-danger"> *</span>
@@ -31,15 +32,6 @@
                                             th:text="${loaiSanPham.tenloai}"></option>
                                 </select>
                                 <span class="text-danger" th:if="${#fields.hasErrors('loaisanpham')}" th:errors="*{loaisanpham}"></span>
-                            </div>
-                            <div class="col">
-                                <label class="form-label" for="cuahang">Cửa Hàng:</label>
-                                <select class="form-control" id="cuahang" name="cuahang.macuahang">
-                                    <option value="">-- Chọn cửa hàng --</option>
-                                    <option th:each="cuaHang: ${cuaHangs}" th:value="${cuaHang.macuahang}"
-                                            th:text="${cuaHang.tencuahang}"></option>
-                                </select>
-                                <span class="text-danger" th:if="${#fields.hasErrors('cuahang')}" th:errors="*{cuahang}"></span>
                             </div>
                         </div>
 

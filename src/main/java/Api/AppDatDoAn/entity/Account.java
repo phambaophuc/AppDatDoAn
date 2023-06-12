@@ -29,6 +29,11 @@ public class Account {
     @Size(max = 144, message = "Mật khẩu không được vượt quá 144 ký tự.")
     private String password;
 
+    @Column(name = "macuahang", length = 10)
+    @NotBlank(message = "Vui lòng nhập mã cửa hàng.")
+    @Size(min = 10, max = 10, message = "Mã cửa hàng bắt buộc là 10 ký tự.")
+    private String macuahang;
+
     @Column(name = "verifycation_code", length = 64)
     private String verificationCode;
 
