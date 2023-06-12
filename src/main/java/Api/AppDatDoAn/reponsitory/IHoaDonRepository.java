@@ -17,6 +17,14 @@ public interface IHoaDonRepository extends JpaRepository<HoaDon, String> {
     @Query("SELECT hd FROM HoaDon hd WHERE hd.mahoadon = ?1")
     HoaDon findByMaHoaDon(String id);
 
+    @Query(value = "SELECT * FROM hoadon hd " +
+            "JOIN dondathang ddh ON ddh.madondathang = hd.dondathang_id " +
+            "JOIN ct_ddh ctdh ON ctdh.madondathang = ddh.madondathang " +
+            "JOIN sanpham sp ON sp.masanpham = ctdh.masanpham " +
+            "JOIN cuahang ch ON sp.cuahang_id = ch.macuahang " +
+            "WHERE ch.macuahang = ?1", nativeQuery = true)
+    List<HoaDon> findAllHoaDonByMaCH(String macuahang);
+
     @Modifying
     @Transactional
     @Query(value = "UPDATE hoadon " +

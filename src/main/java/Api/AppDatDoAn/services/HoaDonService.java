@@ -17,6 +17,10 @@ public class HoaDonService {
         return hoaDonRepository.findByMaHoaDon(id);
     }
 
+    public List<HoaDon> getAllHoaDonByMaCH(String macuahang) {
+        return hoaDonRepository.findAllHoaDonByMaCH(macuahang);
+    }
+
     public List<HoaDon> getAllHoaDon() {
         return hoaDonRepository.findAll();
     }
