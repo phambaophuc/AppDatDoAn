@@ -8,16 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.UUID;
+
 @Repository
 public interface IChiTietDonDatHangRepository extends JpaRepository<ChiTietDonDatHang, ChiTietDonDatHangKey> {
-    @Modifying
-    @Transactional
-    @Query(value = "INSERT INTO ct_ddh (masanpham, madondathang, soluong) " +
-            "VALUES (?1, ?2, ?3)", nativeQuery = true)
-    void createChiTietDonDatHang(String masanpham, String madondathang, Long soluong);
-
-    @Modifying
-    @Transactional
-    @Query(value = "DELETE FROM ct_ddh WHERE masanpham = ?1 AND madondathang = ?2", nativeQuery = true)
-    void deleteChiTietDonDatHang(String masanpham, String madondathang);
+    @Query("SELECT ctdh FROM ChiTietDonDatHang ctdh WHERE ctdh.dondathang.madondathang = ?1")
+    List<ChiTietDonDatHang> findAllCTDHByMaDH(UUID madonhang);
 }

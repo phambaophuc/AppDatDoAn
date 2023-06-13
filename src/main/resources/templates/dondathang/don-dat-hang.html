@@ -28,6 +28,7 @@
                   <th>Ngày Đặt</th>
                   <th>Giờ Hẹn</th>
                   <th>Tình Trạng</th>
+                  <th>Thao Tác</th>
                 </tr>
                 </thead>
                 <tfoot>
@@ -38,6 +39,7 @@
                   <th>Ngày Đặt</th>
                   <th>Giờ Hẹn</th>
                   <th>Tình Trạng</th>
+                  <th>Thao Tác</th>
                 </tr>
                 </tfoot>
                 <tbody>
@@ -48,6 +50,10 @@
                   <td th:text="${donDatHang.ngaydat}"></td>
                   <td th:text="${donDatHang.giohen}"></td>
                   <td th:text="${donDatHang.tinhtrang}"></td>
+                  <td>
+                    <a th:href="@{'/don-dat-hang/chi-tiet-don-hang/' + ${donDatHang.madondathang}}"
+                       class="link-primary">Xem chi tiết đơn hàng</a>
+                  </td>
                 </tr>
                 </tbody>
               </table>

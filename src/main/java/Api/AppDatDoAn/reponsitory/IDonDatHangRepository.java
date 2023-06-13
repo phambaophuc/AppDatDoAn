@@ -1,5 +1,6 @@
 package Api.AppDatDoAn.reponsitory;
 
+import Api.AppDatDoAn.entity.ChiTietDonDatHang;
 import Api.AppDatDoAn.entity.DonDatHang;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
