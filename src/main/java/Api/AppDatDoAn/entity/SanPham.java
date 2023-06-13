@@ -53,7 +53,4 @@ public class SanPham {
 
     @OneToMany(mappedBy = "sanpham", cascade = CascadeType.ALL)
     private Set<ChiTietDonDatHang> chiTietDonDatHangs;
-
-    @OneToMany(mappedBy = "sanpham", cascade = CascadeType.ALL)
-    private Set<DiKem> diKems;
 }

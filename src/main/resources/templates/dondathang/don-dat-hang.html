@@ -24,6 +24,7 @@
                 <tr>
                   <th>Mã Đơn Hàng</th>
                   <th>Tên Khách Hàng</th>
+                  <th>Số Điện Thoại</th>
                   <th>Ngày Đặt</th>
                   <th>Giờ Hẹn</th>
                   <th>Tình Trạng</th>
@@ -33,6 +34,7 @@
                 <tr>
                   <th>Mã Đơn Hàng</th>
                   <th>Tên Khách Hàng</th>
+                  <th>Số Điện Thoại</th>
                   <th>Ngày Đặt</th>
                   <th>Giờ Hẹn</th>
                   <th>Tình Trạng</th>
@@ -42,16 +44,10 @@
                 <tr th:each="donDatHang: ${donDatHangs}">
                   <td th:text="${donDatHang.madondathang}"></td>
                   <td th:text="${donDatHang.khachhang.tenkhachhang}"></td>
+                  <td th:text="${donDatHang.khachhang.sodienthoai}"></td>
                   <td th:text="${donDatHang.ngaydat}"></td>
                   <td th:text="${donDatHang.giohen}"></td>
                   <td th:text="${donDatHang.tinhtrang}"></td>
-                  <!--<td>
-                    <a th:href="@{#}" class="mr-2">
-                      <i class="fa-regular fa-pen-to-square"></i></a>
-                    <a th:href="@{#}" onclick="return confirm('Xóa đơn này?')">
-                      <i class="fas fa-times" style="color:red"></i>
-                    </a>
-                  </td>-->
                 </tr>
                 </tbody>
               </table>

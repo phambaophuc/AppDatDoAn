@@ -15,8 +15,8 @@ public class DonDatHangService {
     @Autowired
     private IDonDatHangRepository donDatHangReponsitory;
 
-    public DonDatHang getDDHById(String id) {
-        return donDatHangReponsitory.findByDDHById(id);
+    public DonDatHang getDDHById(UUID id) {
+        return donDatHangReponsitory.findById(id).orElse(null);
     }
 
     public List<DonDatHang> getAllDDHByMaCH(String macuahang) {
@@ -28,9 +28,6 @@ public class DonDatHangService {
     }
 
     public DonDatHang saveDDH(DonDatHang donDatHang) {
-
-        String maDDH = RandomStringUtils.randomAlphanumeric(10);
-        donDatHang.setMadondathang(maDDH);
 
         return donDatHangReponsitory.save(donDatHang);
     }

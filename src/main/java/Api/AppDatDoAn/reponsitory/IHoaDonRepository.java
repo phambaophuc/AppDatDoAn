@@ -10,13 +10,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Repository
-public interface IHoaDonRepository extends JpaRepository<HoaDon, String> {
-    @Query("SELECT hd FROM HoaDon hd WHERE hd.mahoadon = ?1")
-    HoaDon findByMaHoaDon(String id);
-
+public interface IHoaDonRepository extends JpaRepository<HoaDon, UUID> {
     @Query(value = "SELECT * FROM hoadon hd " +
             "JOIN dondathang ddh ON ddh.madondathang = hd.dondathang_id " +
             "JOIN ct_ddh ctdh ON ctdh.madondathang = ddh.madondathang " +
@@ -24,20 +22,6 @@ public interface IHoaDonRepository extends JpaRepository<HoaDon, String> {
             "JOIN cuahang ch ON sp.cuahang_id = ch.macuahang " +
             "WHERE ch.macuahang = ?1", nativeQuery = true)
     List<HoaDon> findAllHoaDonByMaCH(String macuahang);
-
-    @Modifying
-    @Transactional
-    @Query(value = "UPDATE hoadon " +
-            "JOIN (" +
-            "SELECT ctdh.madondathang, SUM(sp.gia * ctdh.soluong) as tongtien " +
-            "FROM ct_ddh ctdh " +
-            "JOIN sanpham sp ON ctdh.masanpham = sp.masanpham " +
-            "GROUP BY ctdh.madondathang " +
-            ") t " +
-            "ON hoadon.dondathang_id = t.madondathang " +
-            "SET hoadon.tongtien = t.tongtien " +
-            "WHERE hoadon.mahoadon = :mahoadon", nativeQuery = true)
-    void tinhTongTien(@Param("mahoadon") String mahoadon);
 
     @Query("SELECT MONTH(hd.ngaylap) AS month, SUM(hd.tongtien) AS total "
             + "FROM HoaDon hd " +

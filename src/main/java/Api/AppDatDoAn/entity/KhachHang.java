@@ -8,14 +8,15 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Entity
 @Table(name = "khachhang")
 public class KhachHang {
     @Id
-    @Column(name = "makhachhang", length = 10, unique = true)
-    private String makhachhang;
+    @GeneratedValue
+    private UUID makhachhang;
 
     @NotBlank(message = "Tên không được phép bỏ trống")
     @Column(name = "tenkhachhang", length = 64)

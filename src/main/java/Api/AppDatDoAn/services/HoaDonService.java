@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class HoaDonService {
     @Autowired
     private IHoaDonRepository hoaDonRepository;
 
-    public HoaDon getHoaDonById(String id) {
-        return hoaDonRepository.findByMaHoaDon(id);
+    public HoaDon getHoaDonById(UUID id) {
+        return hoaDonRepository.findById(id).orElse(null);
     }
 
     public List<HoaDon> getAllHoaDonByMaCH(String macuahang) {
@@ -26,11 +27,7 @@ public class HoaDonService {
     }
 
     public void saveHoaDon(HoaDon hoaDon) {
-        String maHoaDon = RandomStringUtils.randomAlphanumeric(10);
-        hoaDon.setMahoadon(maHoaDon);
-
         hoaDonRepository.save(hoaDon);
-        hoaDonRepository.tinhTongTien(hoaDon.getMahoadon());
     }
 
 }

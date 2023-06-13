@@ -7,14 +7,15 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 @Entity
 @Table(name = "dondathang")
 public class DonDatHang {
     @Id
-    @Column(name = "madondathang", length = 10, unique = true)
-    private String madondathang;
+    @GeneratedValue
+    private UUID madondathang;
 
     @Column(name = "ngaydat")
     private LocalDate ngaydat;

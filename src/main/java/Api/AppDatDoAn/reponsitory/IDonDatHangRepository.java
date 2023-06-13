@@ -9,23 +9,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface IDonDatHangRepository extends JpaRepository<DonDatHang, String> {
-    @Query("SELECT ddh FROM DonDatHang ddh WHERE ddh.madondathang = ?1")
-    DonDatHang findByDDHById(String id);
-
+public interface IDonDatHangRepository extends JpaRepository<DonDatHang, UUID> {
     @Query(value = "SELECT DISTINCT ddh.* FROM dondathang ddh " +
             "JOIN ct_ddh ctdh ON ctdh.madondathang = ddh.madondathang " +
             "JOIN sanpham sp ON sp.masanpham = ctdh.masanpham " +
             "JOIN cuahang ch ON ch.macuahang = sp.cuahang_id " +
             "WHERE ch.macuahang = ?1", nativeQuery = true)
     List<DonDatHang> findAllDDHByMaCH(String macuahang);
-
-    @Query("SELECT kh.tenkhachhang, sp.tensanpham, ctdh.soluong, ddh.ngaydat, ddh.giohen, ddh.tinhtrang " +
-            "FROM SanPham sp " +
-            "JOIN ChiTietDonDatHang ctdh ON sp.masanpham = ctdh.id.masanpham " +
-            "JOIN DonDatHang ddh ON ctdh.id.madondathang = ddh.madondathang " +
-            "JOIN KhachHang kh ON kh.makhachhang = ddh.khachhang.makhachhang " +
-            "WHERE kh.makhachhang = :id")
-    List<Object[]> LayThongTinDatHangTheoKhachHang(UUID id);
 
 }
