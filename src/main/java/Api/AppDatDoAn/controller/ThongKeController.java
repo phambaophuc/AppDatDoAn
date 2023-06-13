@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Map;
 
 @Controller
@@ -26,10 +27,19 @@ public class ThongKeController {
     @GetMapping("/thongke-thang")
     public String thongKeThang(Model model, Principal principal) {
         Account account = accountService.getAccountByUsername(principal.getName());
-        int year = LocalDate.now().getYear();
-        Map<Integer, Double> revenueByMonth = thongKeService.thongKeTongTienTheoThang(year, account.getMacuahang());
+        String[] roles = accountService.getRolesOfAccount(account.getAccountId());
 
-        model.addAttribute("revenueByMonth", revenueByMonth);
+        int year = LocalDate.now().getYear();
+        Map<Integer, Double> revenueByMonth;
+
+        if (Arrays.asList(roles).contains("ADMIN")) {
+            revenueByMonth = thongKeService.thongKeTongTienTheoThang(year);
+            model.addAttribute("revenueByMonth", revenueByMonth);
+        } else {
+            revenueByMonth = thongKeService.thongKeTongTienTheoThang(year, account.getMacuahang());
+            model.addAttribute("revenueByMonth", revenueByMonth);
+        }
+
         return "hoadon/thongke-thang";
     }
 
@@ -37,18 +47,33 @@ public class ThongKeController {
     @ResponseBody
     public Map<Integer, Double> thongKeThangData(@RequestParam("year") int year, Principal principal) {
         Account account = accountService.getAccountByUsername(principal.getName());
+        String[] roles = accountService.getRolesOfAccount(account.getAccountId());
 
-        return thongKeService.thongKeTongTienTheoThang(year, account.getMacuahang());
+        if (Arrays.asList(roles).contains("ADMIN")) {
+            return thongKeService.thongKeTongTienTheoThang(year);
+        } else {
+            return thongKeService.thongKeTongTienTheoThang(year, account.getMacuahang());
+        }
+
     }
 
     @GetMapping("/thongke-ngay")
     public String thongKeNgay(Model model, Principal principal) {
         Account account = accountService.getAccountByUsername(principal.getName());
+        String[] roles = accountService.getRolesOfAccount(account.getAccountId());
+
         int month = LocalDate.now().getMonthValue();
         int year = LocalDate.now().getYear();
+        Map<Integer, Double> revenueByDay;
 
-        Map<Integer, Double> revenueByDay = thongKeService.thongKeTongTienTheoNgay(month, year, account.getMacuahang());
-        model.addAttribute("revenueByDay", revenueByDay);
+        if (Arrays.asList(roles).contains("ADMIN")) {
+            revenueByDay = thongKeService.thongKeTongTienTheoNgay(month, year);
+            model.addAttribute("revenueByDay", revenueByDay);
+        } else {
+            revenueByDay = thongKeService.thongKeTongTienTheoNgay(month, year, account.getMacuahang());
+            model.addAttribute("revenueByDay", revenueByDay);
+        }
+
         return "hoadon/thongke-ngay";
     }
 
@@ -58,6 +83,12 @@ public class ThongKeController {
                                                 @RequestParam("year") int year,
                                                 Principal principal) {
         Account account = accountService.getAccountByUsername(principal.getName());
-        return thongKeService.thongKeTongTienTheoNgay(month, year, account.getMacuahang());
+        String[] roles = accountService.getRolesOfAccount(account.getAccountId());
+
+        if (Arrays.asList(roles).contains("ADMIN")) {
+            return thongKeService.thongKeTongTienTheoNgay(month, year);
+        } else {
+            return thongKeService.thongKeTongTienTheoNgay(month, year, account.getMacuahang());
+        }
     }
 }
