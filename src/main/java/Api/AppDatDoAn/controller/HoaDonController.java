@@ -3,6 +3,7 @@ package Api.AppDatDoAn.controller;
 import Api.AppDatDoAn.dto.HoaDonDto;
 import Api.AppDatDoAn.entity.Account;
 import Api.AppDatDoAn.entity.HoaDon;
+import Api.AppDatDoAn.entity.SanPham;
 import Api.AppDatDoAn.services.AccountService;
 import Api.AppDatDoAn.services.HoaDonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -36,13 +38,25 @@ public class HoaDonController {
     @GetMapping
     public String hoaDon(Model model, Principal principal) {
         Account account = accountService.getAccountByUsername(principal.getName());
-        List<HoaDon> hoaDons = hoaDonService.getAllHoaDonByMaCH(account.getMacuahang());
-        List<HoaDonDto> hoaDonDtos = new ArrayList<>();
+        String[] roles = accountService.getRolesOfAccount(account.getAccountId());
+        List<HoaDon> hoaDons;
 
-        for (HoaDon hoaDon : hoaDons) {
-            hoaDonDtos.add(toDto(hoaDon));
+        if (Arrays.asList(roles).contains("ADMIN")) {
+            hoaDons = hoaDonService.getAllHoaDon();
+            List<HoaDonDto> hoaDonDtos = new ArrayList<>();
+            for (HoaDon hoaDon : hoaDons) {
+                hoaDonDtos.add(toDto(hoaDon));
+            }
+            model.addAttribute("hoaDons", hoaDonDtos);
+        } else {
+            hoaDons = hoaDonService.getAllHoaDonByMaCH(account.getMacuahang());
+            List<HoaDonDto> hoaDonDtos = new ArrayList<>();
+            for (HoaDon hoaDon : hoaDons) {
+                hoaDonDtos.add(toDto(hoaDon));
+            }
+            model.addAttribute("hoaDons", hoaDonDtos);
         }
-        model.addAttribute("hoaDons", hoaDonDtos);
+
         return "hoadon/hoa-don";
     }
 }

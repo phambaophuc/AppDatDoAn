@@ -89,6 +89,11 @@
     </div>
 
     <li class="nav-item">
+        <a th:href="@{/cua-hang}" class="nav-link">
+            <i class="fas fa-fw fa-shop"></i>
+            <span>Cửa hàng</span></a>
+    </li>
+    <li class="nav-item">
         <a th:href="@{/san-pham}" class="nav-link">
             <i class="fas fa-fw fa-table"></i>
             <span>Sản phẩm</span></a>
@@ -97,11 +102,6 @@
         <a th:href="@{/loai-san-pham}" class="nav-link">
             <i class="fas fa-fw fa-table"></i>
             <span>Loại sản phẩm</span></a>
-    </li>
-    <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
-        <a th:href="@{/cua-hang}" class="nav-link">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Cửa hàng</span></a>
     </li>
     <li class="nav-item">
         <a th:href="@{/hoa-don}" class="nav-link">

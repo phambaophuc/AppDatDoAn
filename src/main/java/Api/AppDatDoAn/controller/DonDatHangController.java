@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,9 +33,18 @@ public class DonDatHangController {
     @GetMapping
     public String donDatHang(Model model, Principal principal) {
         Account account = accountService.getAccountByUsername(principal.getName());
-        List<DonDatHang> donDatHangs = donDatHangService.getAllDDHByMaCH(account.getMacuahang());
+        String[] roles = accountService.getRolesOfAccount(account.getAccountId());
 
-        model.addAttribute("donDatHangs", donDatHangs);
+        List<DonDatHang> donDatHangs;
+
+        if (Arrays.asList(roles).contains("ADMIN")) {
+            donDatHangs = donDatHangService.getAllDDH();
+            model.addAttribute("donDatHangs", donDatHangs);
+        } else {
+            donDatHangs = donDatHangService.getAllDDHByMaCH(account.getMacuahang());
+            model.addAttribute("donDatHangs", donDatHangs);
+        }
+
         return "dondathang/don-dat-hang";
     }
 

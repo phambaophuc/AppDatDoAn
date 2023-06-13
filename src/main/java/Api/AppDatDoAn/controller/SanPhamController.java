@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -25,8 +26,6 @@ public class SanPhamController {
     @Autowired
     private LoaiSanPhamService loaiSanPhamService;
     @Autowired
-    private CuaHangService cuaHangService;
-    @Autowired
     private AccountService accountService;
     @Autowired
     private IImageService iImageService;
@@ -34,9 +33,15 @@ public class SanPhamController {
     @GetMapping
     public String sanPham(Model model, Principal principal) {
         Account account = accountService.getAccountByUsername(principal.getName());
-
-        List<SanPham> sanPhams = sanPhamService.getAllSanPhamByMaCuaHang(account.getMacuahang());
-        model.addAttribute("sanPhams", sanPhams);
+        String[] roles = accountService.getRolesOfAccount(account.getAccountId());
+        List<SanPham> sanPhams;
+        if (Arrays.asList(roles).contains("ADMIN")) {
+            sanPhams = sanPhamService.getAllSanPham();
+            model.addAttribute("sanPhams", sanPhams);
+        } else {
+            sanPhams = sanPhamService.getAllSanPhamByMaCuaHang(account.getMacuahang());
+            model.addAttribute("sanPhams", sanPhams);
+        }
         return "sanpham/san-pham";
     }
 

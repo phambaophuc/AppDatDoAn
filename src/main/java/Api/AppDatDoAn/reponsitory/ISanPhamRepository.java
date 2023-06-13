@@ -25,16 +25,4 @@ public interface ISanPhamRepository extends JpaRepository<SanPham, String> {
     @Query("SELECT sp FROM SanPham sp WHERE LOWER(sp.tensanpham) LIKE %:name% AND sp.loaisanpham.maloai = :theloaiId")
     List<SanPham> searchByNameAndTheLoai(@Param("name") String name, @Param("theloaiId") Long theloaiId);
 
-    @Modifying
-    @Transactional
-    @Query(value = "UPDATE SanPham sp " +
-            "SET sp.luotmua = (" +
-            "SELECT SUM(ctddh.soluong) " +
-            "FROM ChiTietDonDatHang ctddh " +
-            "WHERE ctddh.id.masanpham = sp.masanpham) " +
-            "WHERE EXISTS (" +
-            "SELECT 1 " +
-            "FROM ChiTietDonDatHang ctddh " +
-            "WHERE ctddh.id.masanpham = sp.masanpham)")
-    void updateLuotMua();
 }

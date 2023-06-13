@@ -1,6 +1,8 @@
 package Api.AppDatDoAn.controller;
 
+import Api.AppDatDoAn.entity.Account;
 import Api.AppDatDoAn.entity.CuaHang;
+import Api.AppDatDoAn.services.AccountService;
 import Api.AppDatDoAn.services.CuaHangService;
 import Api.AppDatDoAn.services.IImageService;
 import jakarta.validation.Valid;
@@ -14,26 +16,39 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
-@PreAuthorize("hasAuthority('ADMIN')")
+@PreAuthorize("isAuthenticated()")
 @RequestMapping("/cua-hang")
 public class CuaHangController {
     @Autowired
     private CuaHangService cuaHangService;
-
+    @Autowired
+    private AccountService accountService;
     @Autowired
     IImageService iImageService;
 
     @GetMapping
-    public String cuaHang(Model model) {
-        List<CuaHang> cuaHangs = cuaHangService.getAllCuaHang();
-        model.addAttribute("cuaHangs", cuaHangs);
+    public String cuaHangAdmin(Model model, Principal principal) {
+        Account account = accountService.getAccountByUsername(principal.getName());
+        String[] roles = accountService.getRolesOfAccount(account.getAccountId());
+
+        if (Arrays.asList(roles).contains("ADMIN")) {
+            List<CuaHang> cuaHangs = cuaHangService.getAllCuaHang();
+            model.addAttribute("cuaHangs", cuaHangs);
+        } else {
+            CuaHang cuaHangs = cuaHangService.getCuaHangById(account.getMacuahang());
+            model.addAttribute("cuaHangs", cuaHangs);
+        }
+
         return "cuahang/cua-hang";
     }
 
     @GetMapping("/them-cua-hang")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String themCuaHang(Model model) {
         model.addAttribute("newCuaHang", new CuaHang());
         return "cuahang/them-cua-hang";
@@ -99,6 +114,7 @@ public class CuaHangController {
     }
 
     @GetMapping("/xoa-cua-hang/{macuahang}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String xoaCuaHang(@PathVariable("macuahang")String maCuaHang) {
         cuaHangService.removeCuaHang(maCuaHang);
         return "redirect:/cua-hang";
